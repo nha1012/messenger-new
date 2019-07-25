@@ -1,0 +1,22 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "Messenger by me",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nha1012/messenger.git"
+  },
+  "author": "Nhã Nguyễn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nha1012/messenger/issues"
+  },
+  "homepage": "https://github.com/nha1012/messenger#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

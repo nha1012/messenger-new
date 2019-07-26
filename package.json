@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/nha1012/messenger#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.6.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

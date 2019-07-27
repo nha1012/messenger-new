@@ -8,7 +8,7 @@ let connectDb = ()=>{
   let DB_NAME = "messenger";
   let DB_USER = "";
   let DB_PASSWORD = "";
-
+  
   let URI = `${DB_CONNECTION}://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
   console.log('connected!');
   

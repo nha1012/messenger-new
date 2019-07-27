@@ -1,24 +1,16 @@
-import express from 'express'
-import connectDb from './config/connectDB'
-import Contact from './model/Contact'
+import express from 'express'//import express
+import connectDb from './config/connectDB'//import conncet mongodb
+import configEjs from './config/viewEngine'//import view engine ejs
+import routerWeb from './router/web'//import router for web
 //ket noi voi csdl mongodb voi host 27017
 connectDb();
+//khai bao app su dung express
 let app = express();
+//use view engine
+configEjs(app)
+//router for web
+routerWeb(app)
+//lang nghe cong 3000
 app.listen(3000,'localhost',()=>(
   console.log("Server is running on host 3000")
 ))
-app.get('/', async (req,res)=>{   
-  try {
-    let item={
-      userId:"0000000000000000000000000000",
-      contactId:"00000000000000000000000000"
-    }
-    let contact = await Contact.create(item)
-    await res.send(contact)
-  } catch (error) {
-    
-  } 
-})
-app.get('/nha',(req,res)=>{
-  res.send('router nha')
-})

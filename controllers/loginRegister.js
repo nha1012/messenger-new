@@ -1,4 +1,9 @@
 let loginRegisterRouter = (req,res)=>{
-  res.render('./auth/loginRegister')
+  res.render('./loginRegister')
 }
-module.exports = loginRegisterRouter
+let postRegister = (req,res)=>{
+  console.log(req.body);
+}
+module.exports = {
+  loginRegisterRouter:loginRegisterRouter, 
+  postRegister:postRegister}

@@ -1,4 +1,4 @@
 let homeRouter = (req,res)=>{
-  res.render('./main/master')
+  res.render('./master')
 }
 module.exports = homeRouter

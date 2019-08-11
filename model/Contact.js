@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+mongoose.set('useFindAndModify', false);
 let contactSchema = new mongoose.Schema({
   userId:String,
   contactId:String,
@@ -7,4 +8,9 @@ let contactSchema = new mongoose.Schema({
   updatedAt:{type:Number,default:null},
   deletedAt:{type:Number,default:null},
 }) 
+contactSchema.statics= {
+  createNewContact(item){
+    return this.create(item)
+  }
+}
 module.exports = mongoose.model('contact', contactSchema);

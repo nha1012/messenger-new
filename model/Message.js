@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+mongoose.set('useFindAndModify', false);
 let messageSchema = new mongoose.Schema({
   sender:{id:String,userName:String,avatar:String},
   receiver:{id:String,userName:String,avater:String},

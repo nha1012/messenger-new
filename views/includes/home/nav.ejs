@@ -7,7 +7,7 @@
           <span class="icon-bar"></span>                        
           </button>
           <a class="navbar-brand" href="/" target="__blank">
-              <img src="./images/logo_favicon/logo-trungquandev.png" alt="logo-trungquandev">
+              <img src="./images/logo_favicon/logo2.jpg" alt="logo-trungquandev">
           </a>
       </div>
       <div class="col-sm-3 no-padding">
@@ -61,8 +61,8 @@
               </li>
               <li class="dropdown" id="dropdown-navbar-user" data-uid="user._id">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                      <img class="avatar-small" src="./images/users//default-avatar-trungquandev-02.jpg" alt="">
-                      Trung Quân
+                      <img class="avatar-small" id="avatar-right" src="<%= user.avatar %>" alt="">
+                        <%= user.userName%>
                       <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">

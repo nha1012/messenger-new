@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+mongoose.set('useFindAndModify', false);
 let chatGroup = new mongoose.Schema({
   name:String,
   userAmount:{type:Number,min:3},

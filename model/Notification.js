@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+mongoose.set('useFindAndModify', false);
 let notificationSchema= new mongoose.Schema({
   sender:{
     id:String,

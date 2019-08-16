@@ -21,17 +21,19 @@ let avatarUploadFile = multer({
   storage: storageAvatar,
   limits: {fileSize: 1048576}
 }).single('avatar')
-let updateAvatar = (req,res)=>{
+let updateAvatar = async(req,res)=>{
   avatarUploadFile(req,res,(error)=>{
    if(error){
     return res.status(500).send('File qua lon')
    }
+
    let item = {
      avatar: `/images/users/${req.file.filename}`,
      isUpdateAvatar: true
    }
+  console.log(item);
   
-  userModel.findAndUpdateUser(req._id, item )
+  userModel.findAndUpdateUserById(req.user._id, item )
   let pathImageOld= `./public${req.user.avatar}`  
   try {
     if(req.user.isUpdateAvatar!=false){

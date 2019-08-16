@@ -5,5 +5,6 @@ let configEjs = (app)=>{
   app.engine("ejs",expressEjsExtend)
   app.set("view engine","ejs")
   app.set('views','./views')
+  
 }
 module.exports = configEjs;

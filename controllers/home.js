@@ -5,22 +5,23 @@ let homeRouter =  (req,res)=>{
     return  res.render('./master',  {user:req.user, contacts : contacts})
 }
 let findUser = (req,res)=>{
-  if(req.body.name===null){
-    return res.status(500).send('Nhập đã r tìm ')
+      userModel.findUserByName(req.body.name)
+      .then(result=>{
+        result.forEach(element => {
+            contacts.push(element)
+        })
+        return res.status(200).send('Tìm thấy')
+      })
+      .catch(err=>{
+        return res.status(500)
+      })
+      contacts=[]
   }
-  userModel.findUserByName(req.body.name)
-  .then(result=>{
-    result.forEach(element => {
-      contacts.push(element)
-    });
-    return res.status(200).send('Tìm thấy')
-  })
-  .catch(err=>{
-    return res.status(500)
-  })
-  contacts=[]
-}
-let addContact = (req,res)=>{
+let addContact = async(req,res)=>{
+  let checkContact = await contactModel.checkContact(req.user._id,req.body.id)
+  if(checkContact){
+     return res.status(500).send('Đã kết bạn rồi!!')
+  }
   let item ={
     userId:req.user._id,
     contactId : req.body.id
@@ -33,8 +34,22 @@ let addContact = (req,res)=>{
     res.status(500).send('Lỗi')
   })
 }
+let removeContact= async (req,res)=>{
+  let check =await contactModel.checkContact(req.user._id, req.body.id)  
+  if(!check){
+    return res.status(500).send("Looxi")
+  }
+  contactModel.findAndRemoveById(req.user._id)
+      .then(()=>{
+       res.status(200).send("Đã xóa thành công")
+      })
+      .catch(()=>{
+       res.status(500).send("Có lỗi")
+      })
+}
 module.exports = {
   homeRouter:homeRouter,
   findUser:findUser,
-  addContact:addContact
+  addContact:addContact,
+  removeContact:removeContact
 }

@@ -12,7 +12,7 @@
                       Danh bạ <span class="show-number-contacts count-contacts">(100)</span>
                   </a></li>
                   <li><a data-toggle="tab" id="link-request-contact-sent" href="#request-contact-sent">
-                      Đang chờ xác nhận <span class="show-number-contacts count-request-contact-sent">(100)</span>
+                      Đang chờ xác nhận <span class="show-number-contacts count-request-contact-sent span-wait-accept"></span>
                   </a></li>
                   <li><a data-toggle="tab" id="link-request-contact-received" href="#request-contact-received">
                       Yêu cầu kết bạn <span class="show-number-contacts count-request-contact-received">(100)</span>
@@ -22,12 +22,14 @@
                   <div id="find-user" class="tab-pane fade in active">
                       <div class="find-user-top">
                           <div class="input-group col-md-12">
+                              <form>
                               <input type="text" class="form-control" id="input-search-user" placeholder="Nhập username muốn tìm..." />
                               <span class="input-group-btn">
-                                  <button id="find-contact" class="btn btn-lg" type="button">
+                                  <button id="find-contact" class="btn btn-lg" type="submit">
                                       <i class="glyphicon glyphicon-search"></i>
                                   </button>
                               </span>
+                            </form>
                           </div>
                       </div>
                       <div class="find-user-bottom">
@@ -47,7 +49,7 @@
                                                 <div class="user-address">
                                                         <span>&nbsp<%= item.address %></span>
                                                     </div>
-                                                <div  class="user-add-new-contact" data-uid="<%= item._id %>">
+                                                <div class="user-add-new-contact" data-uid="<%= item._id %>">
                                                     Thêm vào danh sách liên lạc
                                                 </div>
                                                 <div class="user-remove-request-contact action-danger" data-uid="<%= item._id%>">

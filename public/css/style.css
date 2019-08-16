@@ -230,12 +230,17 @@ label:focus,
 
 .contactPanel .user-remove-request-contact {
   display: none;
+  
 }
-
+.user-add-new-contact {
+  position: relative;
+  width: 200px;
+}
 .contactPanel .action-danger {
+  width: 93px;
   border-color: #ff7675;
   background-color: #ff7675;
-  margin: 10px 0px 5px 2px;
+  margin: 5px 0 5px 50px;
 }
 
 .show-number-contacts {
@@ -1280,4 +1285,12 @@ label:focus,
 }
 #alert-error, #alert-success{
   display: none
+}
+.input-group-btn {
+  z-index: 123123123;
+  right: 30px;
+  position: absolute;
+  font-size: 0;
+  white-space: nowrap;
+  top: 3px;
 }

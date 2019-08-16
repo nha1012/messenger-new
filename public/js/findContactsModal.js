@@ -1,5 +1,7 @@
 let name = {}
 let dataId={}
+let contactId={}
+let waitUser=+$(".span-wait-accept").text()
 function callFindUser() {
   $.ajax({
     type: "put",
@@ -16,7 +18,8 @@ function callLoad(){
   $("#contact-list").load('/ #contact-list' )
 }
 function find() {
-  $("#find-contact").bind('click', function(){
+  $("#find-contact").bind('click', function(e){
+    e.preventDefault()
     if($.isEmptyObject(name)){
       return alertify.error("Nhập tên rồi mới tìm!!", 7)
      }
@@ -30,7 +33,7 @@ function searchContact() {
   })
 }
 function getIdContact() {
-  $("#contact-list").on('click', '.user-add-new-contact', function(){
+  $("#contact-list").on('click', '.user-add-new-contact', function(e){
     dataId.id = $(this).attr("data-uid");
      callAjaxPutId(this)
   })
@@ -42,7 +45,16 @@ function callAjaxPutId(target){
     url: "user/add-contact",
     data: dataId,
     success: function (result) {
-      $(target).remove();
+      socket.emit('client-add-new-contact',dataId)
+      socket.on("server-add-new-contact", function(data)
+			{
+        console.log(data);
+				$("#request-contact-received").append(data);
+      });
+      
+      $(".span-wait-accept").text(waitUser)
+      $(target).next().css({'display':'block'})
+      $(target).css({'display':'none'})
       alertify.success(result, 7)
     },
     error: function(){
@@ -50,8 +62,32 @@ function callAjaxPutId(target){
     }
   });  
 }
+function callRemoveContact(target) {
+  $.ajax({
+    type: "delete",
+    url: "/contact/delete-contact",
+    data: contactId,
+    success: function (response) {
+      $(".span-wait-accept").text(waitUser)
+      $(target).prev().css('display','block')
+      $(target).css('display','none')
+      alertify.success(response,7)
+    },
+    error: function(){
+      console.log('that bai');
+    }
+  });
+}
+function removeContact() {
+  $("#contact-list").on('click','.user-remove-request-contact', function(){
+     contactId.id = $(this).attr("data-uid");
+    callRemoveContact(this)
+  })
+}
 $(document).ready(function () {
+  
   searchContact()
   find()
   getIdContact()
+  removeContact()
 });

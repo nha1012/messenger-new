@@ -21,8 +21,7 @@ let initPassportLocal=()=>{
     return done(null,user)
   })
   .catch(err=>{
-    console.log(err);
-    arrayError.push('Lỗi')
+    arrayError.push('Tài khoản chưa được tạo')
     return done(null,false, req.flash('errors', arrayError))
   })
   }))

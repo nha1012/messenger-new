@@ -11,6 +11,28 @@ let contactSchema = new mongoose.Schema({
 contactSchema.statics= {
   createNewContact(item){
     return this.create(item)
+  },
+  findContactById(id){
+    return this.find({userId:id}).exec()
+  },
+  checkContact(userId,contactId){
+    return this.findOne({
+      $or:[
+        {
+          $and:[
+            {'userId':userId},
+            {'contactId':contactId}
+              ]
+           },
+         { $and:[
+            {"userId":contactId},
+            {'contactId':userId}
+              ]}
+      ]
+    }).exec()
+  },
+  findAndRemoveById(id){
+    return this.findOneAndRemove({'userId':id})
   }
 }
 module.exports = mongoose.model('contact', contactSchema);

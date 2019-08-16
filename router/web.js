@@ -49,7 +49,8 @@ let routerWeb = (app)=>{
   router.put('/user/update-info', isLogin,updateUser.updateInfo),
   router.put('/user/update-password', isLogin,updateUser.updatePassword),
   router.put('/user/find-contacts',isLogin, homeRouter.findUser),
-  router.put('/user/add-contact', isLogin, homeRouter.addContact)
+  router.put('/user/add-contact', isLogin, homeRouter.addContact),
+  router.delete('/contact/delete-contact',isLogin, homeRouter.removeContact),
   app.use('/',router)
 }
 module.exports = routerWeb;

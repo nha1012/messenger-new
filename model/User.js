@@ -5,7 +5,7 @@ let userSchema = new mongoose.Schema({
   gender: {type:String, default:"NAM"},
   phone: {type:String,default:null},
   address: {type:String,default:null},
-  avatar: {type:String,default:"/images/users/avatar-default.jpg"},
+  avatar: {type:String,default:"/images/users/avatar-default.png"},
   role:{type:String,default:"user"},
   local:{email:String,password:String,isactive:{type:Boolean,default:false},verifytoken:String},
   facebook:{uid:String,token:String,email:{type:String,trim:true}},

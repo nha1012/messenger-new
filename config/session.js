@@ -1,6 +1,8 @@
 import session from 'express-session'
-let store = new (require("connect-mongo")(session))({
-  url: "mongodb://localhost:27017/messenger"
+let mongoDBStore = require('connect-mongodb-session')(session);
+
+let store = new mongoDBStore({
+  // uri: URI
 })
 let config=(app)=>{
 app.use(session({
@@ -8,10 +10,10 @@ app.use(session({
   secret: 'keyboard cat',
   resave: true,
   saveUninitialized: false,
-  cookie: { maxAge  : 86400000 },
-  store: store
+  cookie: { maxAge  : 86400000 }
 }))
 }
+
 
 module.exports = {
   config:config,

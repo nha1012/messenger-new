@@ -33,9 +33,11 @@ function searchContact() {
   })
 }
 function getIdContact() {
+
   $("#contact-list").on('click', '.user-add-new-contact', function(e){
     dataId.id = $(this).attr("data-uid");
-     callAjaxPutId(this)
+    callAjaxPutId(this)
+
   })
 }
 
@@ -44,18 +46,24 @@ function callAjaxPutId(target){
     type: "put",
     url: "user/add-contact",
     data: dataId,
-    success: function (result) {
-      socket.emit('client-add-new-contact',dataId)
-      socket.on("server-add-new-contact", function(data)
-			{
+    success: function (result) {  
+      socket.emit("Client-sent-data", "Hello world");
+      socket.on("Server-sent-data", function(data)
+      {
+      // let notify=`<span data-uid="${data.id}">
+      //   <img class="avatar-small" src="${data.avatar}"> 
+      //   <strong>${data.userName}</strong> đã gửi cho bạn một lời mời kết bạn!
+      //   </span><br><br><br>`
         console.log(data);
-				$("#request-contact-received").append(data);
+        // $(".noti_content").prepend(notify);
       });
       
+
       $(".span-wait-accept").text(waitUser)
       $(target).next().css({'display':'block'})
       $(target).css({'display':'none'})
       alertify.success(result, 7)
+
     },
     error: function(){
       alertify.error("Lỗi", 7)

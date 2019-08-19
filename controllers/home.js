@@ -1,5 +1,6 @@
 import userModel from '../model/User'
 import contactModel from '../model/Contact'
+import io from 'socket.io'
 let contacts=[]
 let homeRouter =  (req,res)=>{
     return  res.render('./master',  {user:req.user, contacts : contacts})
@@ -18,6 +19,9 @@ let findUser = (req,res)=>{
       contacts=[]
   }
 let addContact = async(req,res)=>{
+
+  
+
   let checkContact = await contactModel.checkContact(req.user._id,req.body.id)
   if(checkContact){
      return res.status(500).send('Đã kết bạn rồi!!')

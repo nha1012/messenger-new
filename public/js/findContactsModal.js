@@ -1,7 +1,6 @@
 let name = {}
 let dataId={}
 let contactId={}
-let waitUser=+$(".span-wait-accept").text()
 function callFindUser() {
   $.ajax({
     type: "put",
@@ -33,7 +32,42 @@ function searchContact() {
   })
 }
 function getIdContact() {
+    
+  socket.on("server-add-new-contact", function(data)
+  {
+  let notify=`<span data-uid="${data.id}">
+    <img class="avatar-small" src="${data.avatar}"> 
+    <strong>${data.userName}</strong> đã gửi cho bạn một lời mời kết bạn!
+    </span><br><br><br>`
 
+  let info =` 
+      <li class="_contactList" data-uid="${data.id}">
+      <div class="contactPanel">
+      <div class="user-avatar">
+          <img src="${data.avatar}">
+      </div>
+      <div class="user-name">
+          <p>
+              ${data.userName}
+          </p>
+      </div>
+      <br>
+      <div class="user-address">
+          <span>&nbsp; ${data.address}.</span>
+      </div>
+      <div class="user-acccept-contact-received" data-uid="${data.id}">
+          Chấp nhận
+      </div>
+      <div class="user-reject-request-contact-received action-danger" data-uid="${data.id}">
+          Xóa yêu cầu
+      </div>
+    </div></li>`
+    $("#request-contact-received .contactList").prepend(info)
+    $(".noti_content").prepend(notify);
+    changeUp('count-request-contact-received')
+    changeUp('noti_counter')
+    changeUp('noti_contact_counter')
+  });
   $("#contact-list").on('click', '.user-add-new-contact', function(e){
     dataId.id = $(this).attr("data-uid");
     callAjaxPutId(this)
@@ -42,28 +76,17 @@ function getIdContact() {
 }
 
 function callAjaxPutId(target){
+
   $.ajax({
     type: "put",
     url: "user/add-contact",
     data: dataId,
     success: function (result) {  
-      socket.emit("Client-sent-data", "Hello world");
-      socket.on("Server-sent-data", function(data)
-      {
-      // let notify=`<span data-uid="${data.id}">
-      //   <img class="avatar-small" src="${data.avatar}"> 
-      //   <strong>${data.userName}</strong> đã gửi cho bạn một lời mời kết bạn!
-      //   </span><br><br><br>`
-        console.log(data);
-        // $(".noti_content").prepend(notify);
-      });
-      
-
-      $(".span-wait-accept").text(waitUser)
-      $(target).next().css({'display':'block'})
+      socket.emit("client-add-new-contact", dataId);
       $(target).css({'display':'none'})
+      $(target).next().css({'display':'block'})
       alertify.success(result, 7)
-
+      changeUp('span-wait-accept')
     },
     error: function(){
       alertify.error("Lỗi", 7)
@@ -76,10 +99,11 @@ function callRemoveContact(target) {
     url: "/contact/delete-contact",
     data: contactId,
     success: function (response) {
-      $(".span-wait-accept").text(waitUser)
+      socket.emit('client-remove-contact', contactId)
       $(target).prev().css('display','block')
       $(target).css('display','none')
       alertify.success(response,7)
+     
     },
     error: function(){
       console.log('that bai');
@@ -87,6 +111,12 @@ function callRemoveContact(target) {
   });
 }
 function removeContact() {
+  socket.on("server-remove-contact", function(data){
+    changeDown('count-request-contact-received')
+    changeDown('noti_counter')
+    changeDown('noti_contact_counter')
+    $(".noti_content").find(`span[data-uid= ${data.id}]`).remove()
+  })
   $("#contact-list").on('click','.user-remove-request-contact', function(){
      contactId.id = $(this).attr("data-uid");
     callRemoveContact(this)

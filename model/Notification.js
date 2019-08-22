@@ -1,19 +1,24 @@
 import mongoose from 'mongoose'
 mongoose.set('useFindAndModify', false);
 let notificationSchema= new mongoose.Schema({
-  sender:{
-    id:String,
-    userName:String,
-    avatar:String
-  },
-  receiver:{
-    id:String,
-    userName:String,
-    avatar:String
-  },
+  senderId:String,
+  receiverId:String,
   type:String,
-  content:String,
   isread:{type:Boolean,default:false},
   createdAt:{type:Number,default:Date.now}
 })
-module.exports = mongoose.model('notificationSchema', notificationSchema);
+notificationSchema.statics={
+  createNewnotification(item){
+    this.create(item);
+  },
+  removeNotification(senderId, receiverId,type){
+    this.findOneAndRemove({'senderId':senderId, 'receiverId': receiverId,'type':type}).exec()
+  }
+}
+let typesNotication={
+  add_contact: "add_contact"
+}
+module.exports = {
+  model:mongoose.model('notificationSchema', notificationSchema),
+  typesNotication:typesNotication
+};

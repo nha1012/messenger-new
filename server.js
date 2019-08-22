@@ -38,28 +38,14 @@ app.use(passport.session())
 //cau hinh passport duoi flash va tren router
 
 
-// io.use(passportSocketio.authorize({
-//   cookieParser: cookieParser,       // the same middleware you registrer in express
-//   key: 'express.sid',       // the name of the cookie where express/connect stores its session_id
-//   secret: 'keyboard cat',   // the session_secret to parse the cookie
-//   store: configSession.store
-// }));
+io.use(passportSocketio.authorize({
+  cookieParser: cookieParser,       // the same middleware you registrer in express
+  key: 'express.sid',       // the name of the cookie where express/connect stores its session_id
+  secret: 'keyboard cat',   // the session_secret to parse the cookie
+  store: configSession.store
+}));
 
 routerWeb(app)
 //init socket io
-// initSocket(io)
-io.on("connection", function(socket)
-	{
-		socket.on("disconnect", function()
-			{
-			});
-         //server lắng nghe dữ liệu từ client
-    io.emit("sent-data", "server sent data");
-		socket.on("Client-sent-data", function(data)
-			{
-        console.log(data);
-				//sau khi lắng nghe dữ liệu, server phát lại dữ liệu này đến các client khác
-        io.emit("Server-sent-data", "server data");
-			});
-	});
+initSocket(io);
 //lang nghe cong 3000

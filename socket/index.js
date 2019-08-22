@@ -1,5 +1,7 @@
-import contact from './contact/addcontact'
+import addContact from './contact/addcontact'
+import removeContact from './contact/removeContact'
 let initSocket =(io)=>{
-  contact(io)
+  addContact(io)
+  removeContact(io)
 }
 module.exports = initSocket

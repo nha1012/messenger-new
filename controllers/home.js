@@ -1,6 +1,6 @@
 import userModel from '../model/User'
 import contactModel from '../model/Contact'
-import io from 'socket.io'
+import notificationModel from '../model/Notification'
 let contacts=[]
 let homeRouter =  (req,res)=>{
     return  res.render('./master',  {user:req.user, contacts : contacts})
@@ -18,9 +18,8 @@ let findUser = (req,res)=>{
       })
       contacts=[]
   }
+//add new a contact and notification
 let addContact = async(req,res)=>{
-
-  
 
   let checkContact = await contactModel.checkContact(req.user._id,req.body.id)
   if(checkContact){
@@ -30,14 +29,21 @@ let addContact = async(req,res)=>{
     userId:req.user._id,
     contactId : req.body.id
   }
-  contactModel.createNewContact(item)
+  let notification = {
+    senderId : req.user._id,
+    receiverId: req.body.id,
+    type: notificationModel.typesNotication.add_contact
+  }
+  await contactModel.createNewContact(item)
   .then(()=>{
+    notificationModel.model.createNewnotification(notification);
     res.status(200).send('Đã thêm thành công')
   })
   .catch(()=>{
     res.status(500).send('Lỗi')
   })
 }
+//remove a contact and notification
 let removeContact= async (req,res)=>{
   let check =await contactModel.checkContact(req.user._id, req.body.id)  
   if(!check){
@@ -45,7 +51,8 @@ let removeContact= async (req,res)=>{
   }
   contactModel.findAndRemoveById(req.user._id)
       .then(()=>{
-       res.status(200).send("Đã xóa thành công")
+        notificationModel.model.removeNotification(req.user._id, req.body.id, notificationModel.typesNotication.add_contact)
+        res.status(200).send("Đã xóa thành công")
       })
       .catch(()=>{
        res.status(500).send("Có lỗi")

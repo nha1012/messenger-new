@@ -2,22 +2,6 @@
  * Created by https://trungquandev.com's author on 25/02/2018.
  */
 let socket = io();
-function socketDemo(){
-  socket.on('Server-sent-data', function(data){
-    console.log(data);
-    $('#nhayeunhung').append(data)
-  });
-  socket.on('sent-data', function(data){
-    console.log(data);
-    $('#nhayeunhung').append(data)
-  });
-  $('.fa-home').bind('click', function () {
-    console.log("asd");
-    socket.emit("Client-sent-data", "Hello world");
-   
-    });
-
-}
 function nineScrollLeft() {
   $('.left').niceScroll({
     smoothscroll: true,
@@ -160,7 +144,6 @@ function cancelCreateGroup() {
 }
 
 $(document).ready(function() {
-  socketDemo();
   // Hide số thông báo trên đầu icon mở modal contact
   showModalContacts();
 

@@ -240,7 +240,7 @@ label:focus,
   width: 93px;
   border-color: #ff7675;
   background-color: #ff7675;
-  margin: 5px 0 5px 50px;
+  /* margin: 00 0 0; */
 }
 
 .show-number-contacts {
@@ -313,6 +313,7 @@ label:focus,
 }
 
 .noti_content {
+  position: relative;
   height: 200px;
   background-color: #fff;
   overflow: auto;

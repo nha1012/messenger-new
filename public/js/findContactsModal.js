@@ -35,7 +35,7 @@ function getIdContact() {
     
   socket.on("server-add-new-contact", function(data)
   {
-  let notify=`<span data-uid="${data.id}">
+  let notify=`<span class="isread" data-uid="${data.id}">
     <img class="avatar-small" src="${data.avatar}"> 
     <strong>${data.userName}</strong> đã gửi cho bạn một lời mời kết bạn!
     </span><br><br><br>`

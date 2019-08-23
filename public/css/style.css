@@ -250,7 +250,7 @@ label:focus,
 
 #notifications {
   display: none;
-  min-width: 250px;
+  min-width: 295px;
   position: absolute;
   right: 17px !important;
   border: solid 1px rgba(100, 100, 100, .20);
@@ -314,12 +314,13 @@ label:focus,
 
 .noti_content {
   position: relative;
-  height: 200px;
+  height: 297px;
   background-color: #fff;
   overflow: auto;
 }
 
 .noti_content>span {
+  padding: 4px;
   position: absolute;
   max-width: 95%;
   margin-top: 5px;
@@ -1294,4 +1295,7 @@ label:focus,
   font-size: 0;
   white-space: nowrap;
   top: 3px;
+}
+.isread{
+  background: #e8e8e8;
 }

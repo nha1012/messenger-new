@@ -9,16 +9,37 @@ let notificationSchema= new mongoose.Schema({
 })
 notificationSchema.statics={
   createNewnotification(item){
-    this.create(item);
+    return this.create(item);
   },
   removeNotification(senderId, receiverId,type){
-    this.findOneAndRemove({'senderId':senderId, 'receiverId': receiverId,'type':type}).exec()
+    return this.findOneAndRemove({'senderId':senderId, 'receiverId': receiverId,'type':type}).exec()
+  },
+  findNotificationsForUserById(idUser){
+    return this.find({'receiverId':idUser}).exec()
   }
 }
-let typesNotication={
+const typesNotication={
   add_contact: "add_contact"
+}
+const contentNotification={
+  getContent:(typeNotification,isRead,senderId,senderAvatar,senderUserName)=>{
+    if(typeNotification==typesNotication.add_contact){
+      if(isRead==false){
+        return `<span class="isread" data-uid="${senderId}">
+              <img class="avatar-small" src="${senderAvatar}"> 
+              <strong>${senderUserName}</strong> đã gửi cho bạn một lời mời kết bạn!
+              </span><br><br><br>`
+      }
+        return `<span data-uid="${senderId}">
+              <img class="avatar-small" src="${senderAvatar}"> 
+              <strong>${senderUserName}</strong> đã gửi cho bạn một lời mời kết bạn!
+              </span><br><br><br>`
+    }
+    
+  }
 }
 module.exports = {
   model:mongoose.model('notificationSchema', notificationSchema),
-  typesNotication:typesNotication
+  typesNotication:typesNotication,
+  content: contentNotification
 };

@@ -1,9 +1,11 @@
 import userModel from '../model/User'
 import contactModel from '../model/Contact'
 import notificationModel from '../model/Notification'
+import getNotifications from '../services/getNotifications'
 let contacts=[]
-let homeRouter =  (req,res)=>{
-    return  res.render('./master',  {user:req.user, contacts : contacts})
+let homeRouter =  async (req,res)=>{
+    let notifications = await getNotifications(req.user._id)
+    return  res.render('./master',  {user:req.user, contacts : contacts,notifications:notifications})
 }
 let findUser = (req,res)=>{
       userModel.findUserByName(req.body.name)

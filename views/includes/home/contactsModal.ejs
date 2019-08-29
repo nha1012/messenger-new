@@ -9,13 +9,32 @@
               <ul class="nav nav-tabs">
                   <li class="active"><a data-toggle="tab" href="#find-user">Tìm người dùng</a></li>
                   <li><a data-toggle="tab" id="link-contacts" href="#contacts">
-                      Danh bạ <span class="show-number-contacts count-contacts">(100)</span>
+                      Danh bạ
+                        <span class="show-number-contacts count-contacts">
+                            <%if(countAllFriend==0){%>
+                            <%}else{%>
+                             <%=countAllFriend%>   
+                            <%}%>
+                        </span>
                   </a></li>
                   <li><a data-toggle="tab" id="link-request-contact-sent" href="#request-contact-sent">
-                      Đang chờ xác nhận <span class="show-number-contacts count-request-contact-sent span-wait-accept"></span>
+                      Đang chờ xác nhận <span class="show-number-contacts count-request-contact-sent span-wait-accept">
+                        <i><%if(countWaitAccept==0){%>
+                            <%}else{%>
+                             <%=countWaitAccept%>
+                            <%}%>
+                        </i>
+                      </span>
                   </a></li>
                   <li><a data-toggle="tab" id="link-request-contact-received" href="#request-contact-received">
-                      Yêu cầu kết bạn <span class="show-number-contacts count-request-contact-received"></span>
+                      Yêu cầu kết bạn <span class="show-number-contacts count-request-contact-received">
+                            <i>
+                                <%if(countSender==0){%>
+                                    <%}else{%>
+                                    <%=countSender%>   
+                                <%}%>
+                            </i>
+                      </span>
                   </a></li>
               </ul>
               <div class="tab-content">
@@ -33,115 +52,129 @@
                           </div>
                       </div>
                       <div class="find-user-bottom">
-                          <ul class="contactList" id="contact-list">
-                                <% contacts.forEach(item=>{%>
-                                    <li class="_contactList" data-uid="<%= item._id %>">
-                                            <div class="contactPanel">
-                                                <div class="user-avatar">
-                                                    <img src="<%= item.avatar%>" alt="">
-                                                </div>
-                                                <div class="user-name">
-                                                    <p>
-                                                        <%= item.userName%>
-                                                    </p>
-                                                </div>
-                                                <br>
-                                                <div class="user-address">
-                                                        <span>&nbsp<%= item.address %></span>
-                                                    </div>
-                                                <div class="user-add-new-contact" data-uid="<%= item._id %>">
-                                                    Thêm vào danh sách liên lạc
-                                                </div>
-                                                <div class="user-remove-request-contact action-danger" data-uid="<%= item._id%>">
-                                                    Hủy yêu cầu
-                                                </div>
-                                            </div>
-                                    </li>    
-                                <%})%>
-                         
-                              
-
+                          <ul class="contactList find-user" id="contact-list">
+   
                           </ul>
                       </div>
                   </div>
+                  <!-- //danh ba -->
                   <div id="contacts" class="tab-pane fade">
                       <div class="find-user-bottom">
-                          <ul class="contactList">
-                              <li class="_contactList" data-uid="user._id">
+                          <ul class="contactList list-friend">
+                              <% allFriend.forEach(friend=>{%>
+                                <li class="_contactList" data-uid="<%= friend._id %>">
                                   <div class="contactPanel">
                                       <div class="user-avatar">
-                                          <img src="./images/users/default-avatar-trungquandev-01.jpg" alt="">
+                                          <img src="<%= friend.avatar %>">
                                       </div>
                                       <div class="user-name">
                                           <p>
-                                              Trung Quân
+                                                <%= friend.userName %>
                                           </p>
                                       </div>
                                       <br>
                                       <div class="user-address">
                                           <span>&nbsp Hà Nội, Việt Nam.</span>
                                       </div>
-                                      <div class="user-talk" data-uid="user._id">
+                                      <div class="user-talk" data-uid="<%= friend._id %>">
                                           Trò chuyện
                                       </div>
-                                      <div class="user-remove-contact action-danger" data-uid="user._id">
+                                      <div class="user-remove-contact action-danger" data-uid="<%= friend._id %>">
                                           Xóa liên hệ
                                       </div>
                                   </div>
-                              </li>
+                                </li>
+                              <%})%>
+                             
+                               
                           </ul>
+                             <%if(allFriend.length>=10){%>
+                                    <a class="load-more is-friend">Xem thêm.</a>
+                                <%}else if(allFriend.length==0){%>
+                                    <p>Không có bạn bè</>
+                                <%}%>
                       </div>
                   </div>
+                  <!-- dang cho -->
                   <div id="request-contact-sent" class="tab-pane fade">
                       <div class="find-user-bottom">
                           <ul class="contactList">
-                              <li class="_contactList" data-uid="user._id">
+                              <% waitAccept.forEach(user=>{%>
+                                 <li class="_contactList" data-uid="<%= user._id%>">
                                   <div class="contactPanel">
                                       <div class="user-avatar">
-                                          <img src="./images/users/default-avatar-trungquandev-01.jpg" alt="">
+                                          <img src="<%= user.avatar%>" alt="">
                                       </div>
                                       <div class="user-name">
                                           <p>
-                                              Trung Quân
+                                                <%= user.userName%>
                                           </p>
                                       </div>
                                       <br>
                                       <div class="user-address">
-                                          <span>&nbsp Hà Nội, Việt Nam.</span>
+                                          <span>
+                                                <%if(user.address){%>
+                                                  <%= user.address%>
+                                                <%}else{%>
+                                                    Không rõ địa chỉ.
+                                                <%}%>
+                                            
+                                            </span>
                                       </div>
-                                      <div class="user-remove-request-sent action-danger" data-uid="user._id">
+                                      <div class="user-remove-request-contact action-danger contact-important" data-uid="<%= user._id%>">
                                           Hủy yêu cầu
                                       </div>
                                   </div>
                               </li>
+                                
+                                <%})%>
+                              
                           </ul>
+                                <%if(waitAccept.length>=10){%>
+                                    <a class="load-more">Xem thêm.</a>
+                                <%}else if(waitAccept.length==0){%>
+                                    <p class='require'>Tất cả yêu cầu đều được chấp thuận hết rôi.</>
+                                <%}%>
                       </div>
                   </div>
+                  <!-- yeu cau -->
                   <div id="request-contact-received" class="tab-pane fade">
                       <div class="find-user-bottom">
-                          <ul class="contactList">
-                              <li class="_contactList" data-uid="user._id">
-                                  <div class="contactPanel">
-                                      <div class="user-avatar">
-                                          <img src="./images/users/default-avatar-trungquandev-01.jpg" alt="">
-                                      </div>
-                                      <div class="user-name">
-                                          <p>
-                                              Trung Quân
-                                          </p>
-                                      </div>
-                                      <br>
-                                      <div class="user-address">
-                                          <span>&nbsp Hà Nội, Việt Nam.</span>
-                                      </div>
-                                      <div class="user-acccept-contact-received" data-uid="user._id">
-                                          Chấp nhận
-                                      </div>
-                                      <div class="user-reject-request-contact-received action-danger" data-uid="user._id">
-                                          Xóa yêu cầu
-                                      </div>
-                                  </div>
-                              </li>
+                          <ul class="contactList" id="list-received">
+                            <%sender.forEach(user=>{%>
+                                <li class="_contactList" data-uid="<%= user._id%>">
+                                    <div class="contactPanel">
+                                        <div class="user-avatar">
+                                            <img src="<%= user.avatar%>" alt="">
+                                        </div>
+                                        <div class="user-name">
+                                            <p>
+                                                    <%= user.userName%>
+                                                    <%= user.password%>
+                                            </p>
+                                        </div>
+                                        <br>
+                                        <div class="user-address">
+                                            <span> <%if(user.address){%>
+                                                <%= user.address%>
+                                                <%}else{%>
+                                                    Không rõ địa chỉ.
+                                                <%}%></span>
+                                        </div>
+                                        <div class="user-acccept-contact-received" data-uid="<%= user._id%>">
+                                            Chấp nhận
+                                        </div>
+                                        <div class="user-reject-request-contact-received action-danger" data-uid="<%= user._id%>">
+                                            Xóa yêu cầu
+                                        </div>
+                                    </div>
+                                </li>
+                            <%})%>
+                            <%if(sender.length>=10){%>
+                                <a class="load-more">Xem thêm.</a>
+                            <%}else if(sender.length==0){%>
+                                <p>Không có yêu cầu kết bạn.</>
+                            <%}else{%><%}%>
                           </ul>
                       </div>
                   </div>

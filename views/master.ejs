@@ -17,11 +17,12 @@
 <body onload="spinLoaded()">
     <!--Icon loader-->
     <div id="loader"></div>
+    
     <div class="master-success-message alert alert-success">Success example</div>
     <!-- include('navbar'); -->
    <% include ./includes/home/nav %>
     <!-- content -->
-    <div class="container-fluid">
+    <div class="container-fluid main-content">
         <div class="row content">
             <!-- include('sections/leftSidenav'); -->
 
@@ -30,7 +31,7 @@
             <!-- include('sections/rightSidenav'); -->
             <div class="col-sm-9 sidenav no-padding">
                 <div class="right" data-chat="">
-                    <div id="nhayeunhung" class="top">
+                    <div class="top">
                         <span>To: <span class="name">Trung Quân (admin)</span></span>
                         <span class="chat-menu-right">
                             <a href="#attachsModal" id="show-attachs" data-toggle="modal">
@@ -167,6 +168,10 @@
     <script src="./js/updatepassword.js" type="text/javascript"></script>
     <script src="./js/changeNumber.js"></script>
     <script src="./js/findContactsModal.js" type="text/javascript"></script>
+    <script src="./js/markAllReaded.js" type="text/javascript"></script>
+    <script src="./js/readMoreContact.js" type="text/javascript"></script>
+    <script src="./js/removeReceived.js" type="text/javascript"></script>
+    <script src="./js/acceptReceived.js" type="text/javascript"></script>
     <!-- <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js'></script> -->
     <!-- include('../contacts/contactsModal'); -->
   
@@ -234,7 +239,7 @@
             </div>
         </div>
     </div>
-        
+    <% include ./includes/notificationModal/notificationsModal%>
     <!-- include('../users/profileModal'); -->
     <% include ./includes/home/profile%>
    

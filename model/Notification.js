@@ -14,26 +14,53 @@ notificationSchema.statics={
   removeNotification(senderId, receiverId,type){
     return this.findOneAndRemove({'senderId':senderId, 'receiverId': receiverId,'type':type}).exec()
   },
-  findNotificationsForUserById(idUser){
-    return this.find({'receiverId':idUser}).exec()
+  findNotificationsForUserById(idUser,limit){
+    return this.find({'receiverId':idUser}).sort({"createdAt":-1}).limit(limit).exec()
+  },
+  findAllNotificationsForUserById(idUser){
+    return this.find({'receiverId':idUser}).sort({'createdAt':-1}).exec()
+  },
+  countNotifUnread(idUser){
+    return this.countDocuments({
+      $and:[
+        {'receiverId':idUser},
+        {'isread':false}
+      ]
+    }).exec()
+  },
+  findAllNotificationAndMarkReaded(idUser){
+    return this.updateMany({'receiverId':idUser,'isread':false},{'isread':true}).exec()
   }
 }
 const typesNotication={
-  add_contact: "add_contact"
+  add_contact: "add_contact",
+  received_friend:'received_friend'
 }
 const contentNotification={
   getContent:(typeNotification,isRead,senderId,senderAvatar,senderUserName)=>{
     if(typeNotification==typesNotication.add_contact){
       if(isRead==false){
-        return `<span class="isread" data-uid="${senderId}">
+        return `<div class="isread" data-uid="${senderId}">
               <img class="avatar-small" src="${senderAvatar}"> 
               <strong>${senderUserName}</strong> đã gửi cho bạn một lời mời kết bạn!
-              </span><br><br><br>`
+              </div>`
       }
-        return `<span data-uid="${senderId}">
+        return `<div data-uid="${senderId}">
               <img class="avatar-small" src="${senderAvatar}"> 
               <strong>${senderUserName}</strong> đã gửi cho bạn một lời mời kết bạn!
-              </span><br><br><br>`
+              </div>`
+    }
+    if(typeNotification==typesNotication.received_friend){
+      if(isRead==false){
+        return `<div class="isread" data-uid="${senderId}">
+              <img class="avatar-small" src="${senderAvatar}"> 
+              <strong>${senderUserName}</strong> đã chấp nhận lời mời kết bạn của bạn!
+              </div>`
+      }
+        return `<div data-uid="${senderId}">
+              <img class="avatar-small" src="${senderAvatar}"> 
+              <strong>${senderUserName}</strong> đã chấp nhận lời mời kết bạn của bạn!
+              </div>`
     }
     
   }

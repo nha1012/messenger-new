@@ -32,7 +32,89 @@ contactSchema.statics= {
     }).exec()
   },
   findAndRemoveById(id){
-    return this.findOneAndRemove({'userId':id})
+    return this.findOneAndRemove({'userId':id}).exec()
+  },
+  findAndRemoveContactSender(idContact,userId){
+    return this.findOneAndRemove(
+      {$and:[
+        {'userId':userId},
+        {'contactId':idContact}
+      ]}
+    ).exec()
+  },
+  findAndRemoveByIdContact(contactId,userId){
+    return this.findOneAndRemove(
+      {$and:[
+        {'userId':contactId},
+        {'contactId':userId}
+      ]}
+      ).exec()
+  },
+  findAndUpdateToFriend(userId,contactId){
+    return this.findOneAndUpdate(
+      {$and:[
+        {'userId':contactId},
+        {'contactId':userId}
+      ]},
+      {'status':true}
+    ).exec()
+  }
+  ,
+  getFriend(idUser,limit){
+    return this.find(
+   {   $or : [
+        { $and : [
+        {'userId':idUser},
+        {'status':true}
+      ]},
+      { $and : [
+        {'contactId':idUser},
+        {'status':true}
+      ]}
+      ]}
+    ).sort({"createdAt":-1}).limit(limit).exec()
+  },
+  getNextFriend(idUser,limit,skip){
+    return this.find(
+   {   
+    $or : [
+        { $and : [
+        {'userId':idUser},
+        {'status':true}
+      ]},
+      { $and : [
+        {'contactId':idUser},
+        {'status':true}
+      ]}
+      ]}
+    ).sort({"createdAt":-1})
+    .limit(limit)
+    .skip(skip)
+    .exec()
+  },
+  getWaitAccept(userId,limit){
+    return this.find({
+      $and:[
+        {'userId':userId},
+        {'status':false}
+      ]
+    }).sort({'createdAt':-1}).limit(limit).exec()
+  },
+  getSender(userId,limit){
+    return this.find({
+      $and:[
+        {'contactId':userId},
+        {'status':false}
+      ]
+    }).sort({'createdAt':-1}).limit(limit).exec()
+  },
+  findContacted(idUser){
+    return this.find(
+      {   $or : [
+        {'userId':idUser},
+        {'contactId':idUser},
+      ]}
+    ).exec()
   }
 }
 module.exports = mongoose.model('contact', contactSchema);

@@ -11,6 +11,35 @@
   padding: 0px;
 }
 
+.modal-body {
+    cursor: pointer;
+}
+
+a.readed {
+    margin: -9px;
+    color: #ff1818;
+    float: right;
+    font-size: 15px;
+}
+
+ul.list-notifications {
+    list-style: none;
+}
+
+ul.list-notifications li {
+    padding: 4px;
+    height: 47px;
+    font-size: 18px;
+}
+
+ul.list-notifications div {
+    padding: 8px;
+}
+
+ul.list-notifications li:hover  div {
+    background: #dcdbdb;
+}
+
 body {
   width: 100%;
   height: 100vh;
@@ -313,19 +342,23 @@ label:focus,
 }
 
 .noti_content {
-  position: relative;
   height: 297px;
   background-color: #fff;
   overflow: auto;
 }
-
-.noti_content>span {
+#noti_Button:hover{
+  text-decoration: none;
+  cursor: pointer;
+}
+.noti_content>div {
   padding: 4px;
-  position: absolute;
   max-width: 95%;
   margin-top: 5px;
   margin-left: 7px;
   color: #333;
+}
+.noti_content>div:hover {
+  background: #eceff1;
 }
 
 .seeAll {
@@ -1297,5 +1330,14 @@ label:focus,
   top: 3px;
 }
 .isread{
-  background: #e8e8e8;
+  background: #E8E8E7;
+}
+.isread.unread{
+  background:none;
+}
+.user-remove-request-sent{
+  display: none;
+}
+.contact-important{
+  display: inline-block !important;
 }

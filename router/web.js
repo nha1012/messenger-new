@@ -10,6 +10,7 @@ import passport from 'passport'
 import authLogout from '../controllers/logout'
 import isLogin from '../controllers/islogin'
 import updateUser from '../controllers/userupdate'
+import markAllReaded from '../services/markAllReaded'
 //init all from passportJS
 initPassportLocal();
 initPassportFacebook();
@@ -48,9 +49,13 @@ let routerWeb = (app)=>{
   router.put('/user/update-avatar', isLogin,updateUser.updateAvatar),
   router.put('/user/update-info', isLogin,updateUser.updateInfo),
   router.put('/user/update-password', isLogin,updateUser.updatePassword),
-  router.put('/user/find-contacts',isLogin, homeRouter.findUser),
+  router.post('/user/find-contacts',isLogin, homeRouter.findUser),
   router.put('/user/add-contact', isLogin, homeRouter.addContact),
-  router.delete('/contact/delete-contact',isLogin, homeRouter.removeContact),
+  router.post('/contact/delete-contact',isLogin, homeRouter.removeContact),
+  router.get('/notification/mark-all-readed',isLogin, markAllReaded),
+  router.post('/contact/read-more',isLogin, homeRouter.readMoreContacts),
+  router.delete('/contact/remove-received',isLogin, homeRouter.removeReceived),
+  router.post('/contact/accept-received',isLogin, homeRouter.acceptReceived),
   app.use('/',router)
 }
 module.exports = routerWeb;

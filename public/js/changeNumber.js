@@ -1,21 +1,24 @@
 function changeUp(className){
-  let numberNow = +$(`.${className}`).html();
+  let count = $(`.${className}`).find('i')
+  let numberNow = +count.html();
   numberNow +=1
   if(numberNow==0){
-    $(`.${className}`).css('display','none')
+    count.css('opacity','0')
+    
   }else{
-    $(`.${className}`).css('display','block')
-    $(`.${className}`).html(numberNow);
+    count.css('  opacity','1')
+    count.html(numberNow);
   }
   
 }
 function changeDown(className){
-  let numberNow = +$(`.${className}`).html();
-  numberNow --
+  let count = $(`.${className}`).find('i')
+  let numberNow = +count.html() 
+  numberNow -=1
   if(numberNow==0){
-    $(`.${className}`).css('display','none')
+    count.css(' opacity','0')
   }else{
-    $(`.${className}`).css('display','block')
-    $(`.${className}`).html(numberNow);
+    count.css('  opacity','1')
+    count.html(numberNow);
   }
 }

@@ -4,7 +4,7 @@ let userSchema = new mongoose.Schema({
   userName : String,
   gender: {type:String, default:"NAM"},
   phone: {type:String,default:null},
-  address: {type:String,default:null},
+  address: {type:String,default:'Không rõ địa chỉ.'},
   avatar: {type:String,default:"/images/users/avatar-default.png"},
   role:{type:String,default:"user"},
   local:{email:String,password:String,isactive:{type:Boolean,default:false},verifytoken:String},
@@ -49,8 +49,18 @@ userSchema.statics ={
   findAndUpdatePassword(id,password){
     return this.findOneAndUpdate(id, {'local.password':password}).exec()
   },
-  findUserByName(name){
-    return this.find({userName: { $regex: '.*' + name + '.*' }})
+  findUserByName(name,isContact){
+    return this.find(
+      {
+        $and:[
+          { 'userName': { $regex: '.*' + name + '.*' }},
+          {'_id':{$nin:isContact}}
+        ] 
+      }
+      ).select('-local').exec()
+  },
+  findByIdUserNoneLocal(idUser){
+    return this.findById(idUser).select('-local').exec()
   }
 }
 module.exports = mongoose.model("user", userSchema);

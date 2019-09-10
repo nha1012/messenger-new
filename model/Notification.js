@@ -30,6 +30,9 @@ notificationSchema.statics={
   },
   findAllNotificationAndMarkReaded(idUser){
     return this.updateMany({'receiverId':idUser,'isread':false},{'isread':true}).exec()
+  },
+  findAndRemoveAllNotif(id){
+    return this.remove({'receiverId':id}).exec()
   }
 }
 const typesNotication={

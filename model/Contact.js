@@ -56,7 +56,7 @@ contactSchema.statics= {
         {'userId':contactId},
         {'contactId':userId}
       ]},
-      {'status':true}
+      {'status':true, 'updatedAt':Date.now()}
     ).exec()
   }
   ,
@@ -73,6 +73,22 @@ contactSchema.statics= {
       ]}
       ]}
     ).sort({"createdAt":-1}).limit(limit).exec()
+  },
+  findAndRemoveFriend(idUser,idContact){
+    return this.findOneAndRemove(
+      {   $or : [
+        { $and : [
+        {'userId':idUser},
+        {'contactId':idContact},
+        {'status':true}
+      ]},
+      { $and : [
+        {'contactId':idUser},
+        {'userId':idContact},
+        {'status':true}
+      ]}
+      ]}
+    ).exec()
   },
   getNextFriend(idUser,limit,skip){
     return this.find(

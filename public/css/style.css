@@ -11,6 +11,16 @@
   padding: 0px;
 }
 
+i.remove-all-notif {
+    position: absolute;
+    top: 5px;
+    right: 0;
+}
+
+i.remove-all-notif:hover {
+    color: #e02d2d;
+}
+
 .modal-body {
     cursor: pointer;
 }
@@ -224,7 +234,7 @@ label:focus,
 
 .contactPanel .user-add-new-contact,
 .contactPanel .user-talk,
-.contactPanel .user-remove-contact,
+.contactPanel .user-remove-friend,
 .contactPanel .user-remove-request-contact,
 .contactPanel .user-acccept-contact-received,
 .contactPanel .user-remove-request-sent,
@@ -344,7 +354,6 @@ label:focus,
 .noti_content {
   height: 297px;
   background-color: #fff;
-  overflow: auto;
 }
 #noti_Button:hover{
   text-decoration: none;
@@ -716,7 +725,7 @@ label:focus,
 }
 
 .left a.create-group-chat {
-  display: none;
+  display: block;
   float: left;
   width: 40px;
   height: 40px;
@@ -1340,4 +1349,8 @@ label:focus,
 }
 .contact-important{
   display: inline-block !important;
+}
+#screen-chat{
+  width: 100%;
+  height: 100%;
 }

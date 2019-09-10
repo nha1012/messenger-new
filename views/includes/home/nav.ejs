@@ -60,14 +60,18 @@
                       </i>
                       <div id="noti_Container">
                           <div id="notifications">
-                              <h3 class="mark-all-readed">Đánh dấu tất cả là đã đọc.</h3>
-                              <div class="noti_content">
+                              <div >
+                                  <h3 class="mark-all-readed">Đánh dấu tất cả là đã đọc.</h3>
+                              <i class="remove-all-notif"> Xóa tất cả thông báo.</i>
+                              </div>
+                              
+                              <div class="noti_content all-notif">
                                   <!-- //emit socket contact -->
-
-                                   <% notifications.forEach(notification=>{%>
+                                      <% notifications.forEach(notification=>{%>
                                     <%- notification%> 
                                   <%})
                                   %>
+                                 
                               </div>
                               <div  class="seeAll">
                                   <a href="#notificationsModal" data-toggle="modal">

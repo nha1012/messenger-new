@@ -7,7 +7,17 @@ let chatGroup = new mongoose.Schema({
   userId:String,
   member:[{userId:String}],
   createdAt:{type:Number,default:Date.now},
-  updatedAt:{type:Number,default:null},
+  updatedAt:{type:Number,default:Date.now},
   deletedAt:{type:Number,default:null}
 })
+chatGroup.statics={
+  createChatGroup(item){
+    return this.create(item)
+  },
+  findGroupByIdUser(idUser){
+    return this.find({
+      'member':{$elemMatch:{'userId':idUser}}
+    }).exec()
+  }
+}
 module.exports = mongoose.model('chatGroup',chatGroup)

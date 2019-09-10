@@ -24,7 +24,7 @@ $(document).ready(function () {
                 <div class="user-talk" data-uid="${element._id}">
                     Trò chuyện
                 </div>
-                <div class="user-remove-contact action-danger" data-uid="${element._id}">
+                <div class="user-remove-friend action-danger" data-uid="${element._id}">
                     Xóa liên hệ
                 </div>
             </div>

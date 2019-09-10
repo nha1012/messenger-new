@@ -7,6 +7,9 @@ import readMoreContact from '../services/readMoreContact'
 import mongoose from 'mongoose'
 import removeReceiveds from '../services/removeReceived'
 import acceptReceiveds from '../services/acceptReceived'
+import removeFriends from '../services/removeFriend'
+import getFriendInMessages from '../services/getFriendInMessage'
+import {bufferToBase64} from "../bufferToBase64"
 let homeRouter =  async (req,res)=>{
     //get 10 notif
     let notifications = await getNotifications.getNotifications(req.user._id)
@@ -23,6 +26,8 @@ let homeRouter =  async (req,res)=>{
     //get 10 sender
     let sender = await getContacts.getSender(req.user._id)
     let countSender = sender.length
+    //get 10 user to message
+    let getFriends = await getFriendInMessages(req.user._id)
     return  res.render('./master',  {
       user:req.user,
       notifications:notifications,
@@ -33,7 +38,9 @@ let homeRouter =  async (req,res)=>{
       waitAccept:waitAccept,
       countWaitAccept:countWaitAccept,
       sender:sender,
-      countSender:countSender
+      countSender:countSender,
+      getFriends:getFriends,
+      bufferToBase64:bufferToBase64
     })
 }
 let findUser =async (req,res)=>{
@@ -71,8 +78,8 @@ let addContact = async(req,res)=>{
     receiverId: req.body.id,
     type: notificationModel.typesNotication.add_contact
   }
-  const user= await userModel.findByIdUser(req.body.id)
-  var users = {
+  const user = await userModel.findByIdUser(req.body.id)
+  let users = {
     id:user._id,
     avatar:user.avatar,
     address:user.address,
@@ -81,7 +88,7 @@ let addContact = async(req,res)=>{
   await contactModel.createNewContact(item)
   .then(()=>{
     notificationModel.model.createNewnotification(notification);
-    res.status(200).send({message:'Đã thêm thành công',user:users})
+    res.status(200).send(users)
   })
   .catch(()=>{
     res.status(500).send('Lỗi')
@@ -141,6 +148,22 @@ let acceptReceived = async (req,res)=>{
     return res.status(500).send(err)
   })
 }
+let removeFriend= async(req,res)=>{
+  await removeFriends(req.user._id,req.body.id)
+  .then(result=>{
+    return res.status(200).send('da xoa')
+  })
+  .catch(err=>res.status(500))
+}
+let removeAllNotif=async (req,res)=>{
+  await notificationModel.model.findAndRemoveAllNotif(req.user._id)
+  .then(result=>{
+    return  res.status(200).send(result)
+  }
+   
+  )
+}
+
 module.exports = {
   homeRouter:homeRouter,
   findUser:findUser,
@@ -148,5 +171,8 @@ module.exports = {
   removeContact:removeContact,
   readMoreContacts:readMoreContacts,
   removeReceived:removeReceived,
-  acceptReceived:acceptReceived
+  acceptReceived:acceptReceived,
+  removeFriend:removeFriend,
+  removeAllNotif:removeAllNotif
+ 
 }

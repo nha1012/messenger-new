@@ -23,7 +23,7 @@ function callAjax() {
           <div class="user-talk" data-uid="${user.id}">
               Trò chuyện
           </div>
-          <div class="user-remove-contact action-danger" data-uid="${user.id}">
+          <div class="user-remove-friend action-danger" data-uid="${user.id}">
               Xóa liên hệ
           </div>
       </div>
@@ -59,16 +59,17 @@ $(document).ready(function () {
         <div class="user-talk" data-uid="${data.id}">
             Trò chuyện
         </div>
-        <div class="user-remove-contact action-danger" data-uid="${data.id}">
+        <div class="user-remove-friend action-danger" data-uid="${data.id}">
             Xóa liên hệ
         </div>
     </div>
   </li>`
+  $(".audio-notif")[0].play();
   $('.list-friend').prepend(user)
   $('.noti_content').prepend(notif)
   changeUp('count-contacts')
-  })
-  $(document).on('click', '.user-acccept-contact-received', function () {
+})
+$(document).on('click', '.user-acccept-contact-received', function () {
     idReceived.id = $(this).attr('data-uid')
     callAjax();
   })

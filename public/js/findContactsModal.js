@@ -80,7 +80,7 @@ function getIdContact() {
           Xóa yêu cầu
       </div>
     </div></li>`
-      
+    $(".audio-notif")[0].play();
     $("#request-contact-received .contactList").prepend(info)
     $(".noti_content").prepend(notify);
     changeUp('count-request-contact-received')
@@ -98,24 +98,24 @@ function callAjaxPutId(target){
 
   $.ajax({
     type: "put",
-    url: "user/add-contact",
+    url: "/user/add-contact",
     data: dataId,
     success: function (result) {  
-      let user = `<li class="_contactList" data-uid="${result.user.id}">
+      let user = `<li class="_contactList" data-uid="${result.id}">
       <div class="contactPanel">
           <div class="user-avatar">
-              <img src="${result.user.avatar}" alt="">
+              <img src="${result.avatar}" alt="">
           </div>
           <div class="user-name">
               <p>
-                  nguyenphucnha111
+              ${result.userName}
               </p>
           </div>
           <br>
           <div class="user-address">
-                  <span>${result.user.address};</span>
+                  <span>${result.address};</span>
               </div>
-          <div class="user-remove-request-contact action-danger contact-important" data-uid="${result.user.id}" style="display: block;">
+          <div class="user-remove-request-contact action-danger contact-important" data-uid="${result.id}" style="display: block;">
               Hủy yêu cầu
           </div>
       </div>
@@ -124,7 +124,7 @@ function callAjaxPutId(target){
       socket.emit("client-add-new-contact", dataId);
       $(target).css({'display':'none'})
       $(target).next().css({'display':'block'})
-      alertify.success(result.message, 7)
+      alertify.success("Đã kết bạn thành công", 7)
       $('.require').remove()
       changeUp('span-wait-accept')
     },

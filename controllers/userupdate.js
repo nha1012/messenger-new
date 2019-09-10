@@ -31,8 +31,6 @@ let updateAvatar = async(req,res)=>{
      avatar: `/images/users/${req.file.filename}`,
      isUpdateAvatar: true
    }
-  console.log(item);
-  
   userModel.findAndUpdateUserById(req.user._id, item )
   let pathImageOld= `./public${req.user.avatar}`  
   try {
@@ -46,7 +44,7 @@ let updateAvatar = async(req,res)=>{
   }
   )}
 let updateInfo = (req,res)=>{  
-  userModel.findAndUpdateUserById(req._id, req.body)
+  userModel.findAndUpdateUserById(req.user._id, req.body)
   .then( result=>{
      res.status(200).send("Đã cập nhật thành công.")
   }

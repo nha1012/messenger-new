@@ -47,9 +47,17 @@ let getFriendInMessage = (idUser, limit= 10)=>{
       let allArrayUserAndGroup = await allFriend.concat(allGroupChat)
          
       let allArrayUserAndGroupPromise =  allArrayUserAndGroup.map(async item=>{
-          var message = await messageModel.model.findMessages(idUser, item.id)
+       
+        if(item.member){
+          let message = await messageModel.model.findMessagesGroup(item.id)
           item.message = message
-          return item       
+          return item 
+        }else{
+          let message = await messageModel.model.findMessagesUser(idUser, item.id)
+          item.message = message
+          return item 
+        }
+              
       })     
       resolve(await Promise.all(allArrayUserAndGroupPromise) )      
     } catch (error) {

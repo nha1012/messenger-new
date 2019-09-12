@@ -12,15 +12,16 @@ function nineScrollLeft() {
   });
 }
 
-function nineScrollRight() {
-  $('.right .chat').niceScroll({
+function nineScrollRight(chatId) {
+  $(".chat").niceScroll({
     smoothscroll: true,
     horizrailenabled: false,
     cursorcolor: '#ECECEC',
     cursorwidth: '7px',
     scrollspeed: 50
   });
-  $('.right .chat').scrollTop($('.right .chat')[0].scrollHeight);
+  $(`.${chatId}`).scrollTop($(`.${chatId}`)[0].scrollHeight);
+  $(`.${chatId}`).getNiceScroll().resize()
 }
 
 function enableEmojioneArea(chatId) {
@@ -135,14 +136,14 @@ function cancelCreateGroup() {
     }
   });
 }
-function changeScreenChat() {
- 
-  $(".room-chat").on('click', function () {
+function changeScreenChat(chatId) {
+  $(".room-chat").unbind("click").on('click', function () {
     divId = $(this).find('li').data("chat")
     $(this).tab("show")
     $(".room-chat").find('li').removeClass('active')
-    $(this).find('li').addClass('active')
+    $(this).find('li').addClass('active')   
     // Bật emoji, tham số truyền vào là id của box nhập nội dung tin nhắn
+    nineScrollRight(divId)
     enableEmojioneArea(divId);
     })
   }
@@ -150,13 +151,11 @@ $(document).ready(function() {
   changeScreenChat()
   // Hide số thông báo trên đầu icon mở modal contact
   showModalContacts();
-
   // Bật tắt popup notification
   configNotification();
 
   // Cấu hình thanh cuộn
   nineScrollLeft();
-  // nineScrollRight();
   // Icon loading khi chạy ajax
   ajaxLoading();
   // Hiển thị hình ảnh grid slide trong modal tất cả ảnh, tham số truyền vào là số ảnh được hiển thị trên 1 hàng.
@@ -168,5 +167,6 @@ $(document).ready(function() {
 
   // Action hủy việc tạo nhóm trò chuyện
   cancelCreateGroup();
-  $('ul.people').find("li")[0].click()
+  $('ul.people').find("a")[0].click()
+
 });

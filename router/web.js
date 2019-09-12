@@ -58,6 +58,7 @@ let routerWeb = (app)=>{
   router.post('/contact/accept-received',isLogin, homeRouter.acceptReceived),
   router.delete('/contact/remove-friend',isLogin, homeRouter.removeFriend),
   router.delete('/notif/remove-all',isLogin, homeRouter.removeAllNotif),
+  router.post('/message/add-new-text-emoji',isLogin, homeRouter.addNewMessageTextEmoji),
   app.use('/',router)
 }
 module.exports = routerWeb;

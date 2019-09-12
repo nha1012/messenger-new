@@ -5,16 +5,19 @@ let messageSchema = new mongoose.Schema({
   receiverId:String,
   conversationType: String,
   messageType:String,
-  sender:{id:String,userName:String,avatar:String},
-  receiver:{id:String,userName:String,avater:String},
+  sender:{id:String,name:String,avatar:String},
+  receiver:{id:String,name:String,avatar:String},
   text:String,
   file:{date:Buffer,contentType:Buffer,fileName:String},
-  createdAt:{type:Number,default:Date.now},
+  createdAt:{type:Number,default:Date.now()},
   updatedAt:{type:Number,default:null},
   deletedAt:{type:Number,default:null}
 })
 messageSchema.statics={
-  findMessages(senderId,receiverId){
+  createNewMessageText(item){
+     return this.create(item);
+    },
+    findMessagesUser(senderId,receiverId){
     return this.find({
       $or:[
         {
@@ -31,6 +34,11 @@ messageSchema.statics={
         }
       ]
     }).exec()
+  },
+  findMessagesGroup(receiverId){
+    return this.find( 
+        {'receiverId':receiverId}
+      ).exec()
   }
 }
 const MESSAGE_CONVERSATION_TYPES={

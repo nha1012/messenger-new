@@ -10,7 +10,7 @@ let userSchema = new mongoose.Schema({
   local:{email:String,password:String,isactive:{type:Boolean,default:false},verifytoken:String},
   facebook:{uid:String,token:String,email:{type:String,trim:true}},
   google:{uid:String,token:String,email:{type:String,trim:true}},
-  createdAt:{type:Number,default:Date.now},
+  createdAt:{type:Number,default:Date.now()},
   updateAt:{type:Number,default:null},
   deleteAt:{type:Number,default:null},
   isUpdateAvatar:{type:Boolean, default:false}

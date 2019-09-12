@@ -26,7 +26,15 @@
                                         <span class="group-chat-name">Group:</span> <%= conver.name%>
                                     </span>
                                     <span class="time">Hai giờ trước</span>
-                                    <span class="preview">Chào cả nhóm</span>
+                                    <span class="preview">   <%conver.message.forEach((value,key)=>{%>
+                                        <%if(key==conver.message.length-1){%>
+                                            <% if(value.text){%>
+                                                <%= value.text%>    
+                                            <%}else{%>
+                                                A file    
+                                            <%}%>
+                                        <%}%>
+                                    <%})%>    </span>
                                 </li>
                             </a>
                         <%}else{%>
@@ -40,7 +48,15 @@
                                                 <%= conver.userName%>
                                         </span>
                                         <span class="time">Một phút trước</span>
-                                        <span class="preview">Xin chào</span>
+                                        <span class="preview">   <%conver.message.forEach((value,key)=>{%>
+                                            <%if(key==conver.message.length-1){%>
+                                                <% if(value.text){%>
+                                                    <%= value.text%>    
+                                                <%}else{%>
+                                                    A file    
+                                                <%}%>
+                                            <%}%>
+                                        <%})%>    </span>
                                     </li>
                                 </a>
                         <%}%>
@@ -64,7 +80,18 @@
                                                     <%= conver.userName%>
                                             </span>
                                             <span class="time">Một phút trước</span>
-                                            <span class="preview">Xin chào</span>
+                                            <span class="preview">
+                                                <%conver.message.forEach((value,key)=>{%>
+                                                    <%if(key==conver.message.length-1){%>
+                                                        <% if(value.text){%>
+                                                            <%= value.text%>    
+                                                        <%}else{%>
+                                                            A file    
+                                                        <%}%>
+                                                    <%}%>
+                                                <%})%>                                           
+                                               
+                                            </span>
                                         </li>
                                     </a>
                             <%}%>

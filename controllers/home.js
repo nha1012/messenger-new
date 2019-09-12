@@ -9,6 +9,7 @@ import removeReceiveds from '../services/removeReceived'
 import acceptReceiveds from '../services/acceptReceived'
 import removeFriends from '../services/removeFriend'
 import getFriendInMessages from '../services/getFriendInMessage'
+import addNewMessageTextEmojis from '../services/addNewMessageTextEmoji'
 import {bufferToBase64} from "../bufferToBase64"
 let homeRouter =  async (req,res)=>{
     //get 10 notif
@@ -163,6 +164,15 @@ let removeAllNotif=async (req,res)=>{
    
   )
 }
+let addNewMessageTextEmoji= async(req,res)=>{
+  let message = await addNewMessageTextEmojis(req,res)
+  .then(result=>{
+    return  res.status(200).send(message)
+  })
+  .catch(err=>{
+    return  res.status(500).send(err)
+  })
+}
 
 module.exports = {
   homeRouter:homeRouter,
@@ -173,6 +183,7 @@ module.exports = {
   removeReceived:removeReceived,
   acceptReceived:acceptReceived,
   removeFriend:removeFriend,
-  removeAllNotif:removeAllNotif
+  removeAllNotif:removeAllNotif,
+  addNewMessageTextEmoji:addNewMessageTextEmoji
  
 }

@@ -6,8 +6,8 @@ let chatGroup = new mongoose.Schema({
   messagesAmount:{type:Number, default:0},
   userId:String,
   member:[{userId:String}],
-  createdAt:{type:Number,default:Date.now},
-  updatedAt:{type:Number,default:Date.now},
+  createdAt:{type:Number,default:Date.now()},
+  updatedAt:{type:Number,default:Date.now()},
   deletedAt:{type:Number,default:null}
 })
 chatGroup.statics={

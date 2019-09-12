@@ -5,7 +5,7 @@ let notificationSchema= new mongoose.Schema({
   receiverId:String,
   type:String,
   isread:{type:Boolean,default:false},
-  createdAt:{type:Number,default:Date.now}
+  createdAt:{type:Number,default:Date.now()}
 })
 notificationSchema.statics={
   createNewnotification(item){

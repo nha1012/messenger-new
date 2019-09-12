@@ -1,5 +1,5 @@
 <div class="col-sm-9 sidenav no-padding"> 
-    <div class="tab-content" id="screen-chat">
+    <div class="tab-content box-chat" id="screen-chat">
         <% getFriends.forEach((conver,index)=>{%>
             <div class="right tab-pane <%if(index==0){%>active <%}%>" data-chat="" id="to_<%=  conver.id%>">
             <div class="top">
@@ -27,33 +27,60 @@
                 </span>
             </div>  
             <div class="content-chat">
-                <div class="chat" data-chat="">
+                <div class="chat <%= conver.id%>" data-chat="<%= conver.id%>">
                     <%conver.message.forEach(message=>{%>
-                        <%if(message.messageType=="text"){%>
-                            <div class="bubble <% if(message.senderId==user._id){%>me <%}else{%>you<%}%>" data-mess-id="<%=message._id%>"><%=message.text %>
-                            </div>
+                        <%if(message.conversationType!="group"){%>
+                            <%if(message.messageType=="text"){%>
+                                <div class="bubble <% if(message.senderId==user._id){%>me <%}else{%>you<%}%>" data-mess-id="<%=message._id%>"><%=message.text %>
+                                </div>
+                            <%}%>
+                            
+                            <%if(message.messageType=="file"){%>
+                                <div class="bubble <% if(message.senderId==user._id){%>me <%}else{%>you<%}%> bubble-image-file" data-mess-id="<%=message._id%>">
+                                    <a href="" 
+                                    download="<%= message.file.fileName%>">
+                                        <%= message.file.fileName%>
+                                    </a>
+                                </div>
+                            <%}%>
+                            <%if(message.messageType=="image"){%>  
+                                <div class="bubble <% if(message.senderId==user._id){%>me <%}else{%>you<%}%> bubble-image-file" data-mess-id="<%=message._id%>">
+                                    <img class="message-image" src="<%= message.sender.avatar%>" title="<%= message.sender.name%>">
+                                    <img src="" class="show-image-chat">
+                                </div>
+                            <%}%>
+                        <%}else{%>
+                            <%if(message.messageType=="text"){%>
+                                <div class="bubble <% if(message.senderId==user._id){%>me <%}else{%>you<%}%>" data-mess-id="<%=message._id%>">
+                                    <img class="message-image" src="<%= message.sender.avatar%>" title="<%= message.sender.name%>" alt="">
+                                    <%=message.text %>
+                                </div>
+                            <%}%>
+                            
+                            <%if(message.messageType=="file"){%>
+                                
+                                <div class="bubble <% if(message.senderId==user._id){%>me <%}else{%>you<%}%> bubble-image-file" data-mess-id="<%=message._id%>">
+                                    <img class="message-image" src="<%= message.sender.avatar%>" title="<%= message.sender.name%>" alt="">
+                                    <a href="" 
+                                    download="<%= message.file.fileName%>">
+                                        <%= message.file.fileName%>
+                                    </a>
+                                </div>
+                            <%}%>
+                            <%if(message.messageType=="image"){%>
+                                <div class="bubble <% if(message.senderId==user._id){%>me <%}else{%>you<%}%> bubble-image-file" data-mess-id="<%=message._id%>">
+                                    <img src="" class="show-image-chat">
+                                </div>
+                            <%}%>
                         <%}%>
                         
-                        <%if(message.messageType=="file"){%>
-                            <div class="bubble <% if(message.senderId==user._id){%>me <%}else{%>you<%}%> bubble-image-file" data-mess-id="<%=message._id%>">
-                                <a href="" 
-                                download="<%= message.file.fileName%>">
-                                    <%= message.file.fileName%>
-                                </a>
-                            </div>
-                        <%}%>
-                        <%if(message.messageType=="image"){%>
-                            <div class="bubble <% if(message.senderId==user._id){%>me <%}else{%>you<%}%> bubble-image-file" data-mess-id="<%=message._id%>">
-                                <img src="" class="show-image-chat">
-                            </div>
-                        <%}%>
                     <%})%>
                 </div>
             </div>
             <div class="write" data-chat="<%=  conver.id%>">
                 <input type="text" class="write-chat <%if(conver.member){%>group-chat<%}%>" id="write-chat-<%=conver.id%>" data-chat="<%=conver.id%>">
                 <div class="icons">
-                    <a href="#" class="icon-chat" data-chat="<%=  conver.id%>"><i class="fa fa-smile-o"></i></a>
+                    <a href="#" class="icon-chat" data-chat="<%= conver.id%>"><i class="fa fa-smile-o"></i></a>
                     <label for="image-chat">
                         <input type="file" id="image-chat" name="my-image-chat" class="image-chat" data-chat="<%=  conver.id%>">
                         <i class="fa fa-photo"></i>

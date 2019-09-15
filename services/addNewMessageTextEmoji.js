@@ -1,4 +1,3 @@
-
 import messageModel from '../model/Message'
 let addNewMessageTextEmoji = (req,res)=>{
   return new Promise(async(resolve,reject)=>{
@@ -14,9 +13,9 @@ let addNewMessageTextEmoji = (req,res)=>{
             sender:{id:req.user._id,name:req.user.userName,avatar:req.user.avatar},
             receiver:{id:getGroupChat._id,name:getGroupChat.name,avatar:"group-avatar-trungquandev.png"},
             text:req.body.message,
-            updatedAt:Date.now()
+            createdAt:Date.now()
           }
-          let newMessage= await messageModel.model.createNewMessageText(item)          
+          let newMessage= await messageModel.model.createNewMessageText(item)         
           resolve(newMessage)
         }else{
           let getUserChat = await  messageModel.model.findMessagesUser(req.user._id,req.body.targetId)
@@ -28,7 +27,7 @@ let addNewMessageTextEmoji = (req,res)=>{
             sender:{id:req.user._id,name:req.user.userName,avatar:req.user.avatar},
             receiver:{id:getUserChat._id,name:getUserChat.name,avatar:getUserChat.avatar},
             text:req.body.message,
-            updatedAt:Date.now()
+            createdAt:Date.now()
           }
           let newMessage = await messageModel.model.createNewMessageText(item)
           resolve(newMessage)

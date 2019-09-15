@@ -49,17 +49,20 @@ let getFriendInMessage = (idUser, limit= 10)=>{
       let allArrayUserAndGroupPromise =  allArrayUserAndGroup.map(async item=>{
        
         if(item.member){
-          let message = await messageModel.model.findMessagesGroup(item.id)
-          item.message = message
+          let message = await messageModel.model.findMessagesGroup(item.id,25)
+          item.message = message.reverse()
           return item 
         }else{
-          let message = await messageModel.model.findMessagesUser(idUser, item.id)
-          item.message = message
+          let message = await messageModel.model.findMessagesUser(idUser, item.id,20)
+          item.message = message.reverse()
           return item 
         }
-              
       })     
-      resolve(await Promise.all(allArrayUserAndGroupPromise) )      
+      allArrayUserAndGroupPromise= await Promise.all(allArrayUserAndGroupPromise) 
+      allArrayUserAndGroupPromise = allArrayUserAndGroupPromise.sort(function (a, b) {
+        return b.updatedAt-a.updatedAt ;
+      });
+      resolve(allArrayUserAndGroupPromise)      
     } catch (error) {
       reject(error)
     }

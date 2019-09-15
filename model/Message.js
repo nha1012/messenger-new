@@ -8,6 +8,7 @@ let messageSchema = new mongoose.Schema({
   sender:{id:String,name:String,avatar:String},
   receiver:{id:String,name:String,avatar:String},
   text:String,
+  isRead:{type:Boolean,default:false},
   file:{date:Buffer,contentType:Buffer,fileName:String},
   createdAt:{type:Number,default:Date.now()},
   updatedAt:{type:Number,default:null},
@@ -17,7 +18,7 @@ messageSchema.statics={
   createNewMessageText(item){
      return this.create(item);
     },
-    findMessagesUser(senderId,receiverId){
+    findMessagesUser(senderId,receiverId,limit){
     return this.find({
       $or:[
         {
@@ -33,12 +34,18 @@ messageSchema.statics={
           ]
         }
       ]
-    }).exec()
+    }).sort({ 'createdAt': -1 }).limit(limit).exec()
   },
-  findMessagesGroup(receiverId){
+  findMessagesGroup(receiverId,limit){
     return this.find( 
         {'receiverId':receiverId}
-      ).exec()
+      ).sort({ 'createdAt': -1 }).limit(limit).exec()
+  },
+  markAllIsReadUser(id){
+    return this.updateMany({'senderId':id,'conversationType':MESSAGE_CONVERSATION_TYPES.PERSONAL },{'isRead':true}).exec()
+  }
+  ,markAllIsReadGroup(id){
+    return this.updateMany({'receiverId':id,'conversationType':MESSAGE_CONVERSATION_TYPES.GROUP},{'isRead':true}).exec()
   }
 }
 const MESSAGE_CONVERSATION_TYPES={

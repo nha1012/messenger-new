@@ -16,16 +16,26 @@
                 <ul class="people no-padding-start">
                     <% getFriends.forEach(conver=>{%>
                         <% if(conver.member){%>
-                            <a  href="#uid<%= conver.id%>" class="room-chat" data-target="#to_<%= conver.id%>">
-                                <li class="person group-chat" data-chat="<%= conver.id%>" >
+                            <a  href="#uid<%= conver.id%>" class="room-chat
+                                    <" data-target="#to_<%= conver.id%>">
+                                <li class="person group-chat <%conver.message.forEach((value,key)=>{%>
+                                        <%if(key==conver.message.length-1){%>
+                                            <%if(value.senderId!=user._id && value.isRead==false){%>un-read<%}%>
+                                        <%}%>
+                                    <%})%>" data-chat="<%= conver.id%>" >
                                     <div class="left-avatar">
                                         <div class="dot"></div>
                                         <img src="./images/users/group-avatar-trungquandev.png" alt="">
                                     </div>
-                                    <span class="name">
-                                        <span class="group-chat-name">Group:</span> <%= conver.name%>
+                                    <span class="name group-chat-name">
+                                        Group:<%= conver.name%>
                                     </span>
-                                    <span class="time">Hai giờ trước</span>
+                                    <span class="time
+                                    "> <%conver.message.forEach((value,key)=>{%>
+                                        <%if(key==conver.message.length-1){%>
+                                            <%= convertTimeMessages(value.createdAt)%>
+                                        <%}%>
+                                    <%})%></span>
                                     <span class="preview">   <%conver.message.forEach((value,key)=>{%>
                                         <%if(key==conver.message.length-1){%>
                                             <% if(value.text){%>
@@ -39,7 +49,11 @@
                             </a>
                         <%}else{%>
                             <a  href="#uid<%= conver.id%>" class="room-chat" data-target="#to_<%= conver.id%>">
-                                    <li class="person" data-chat="<%= conver.id%>">
+                                    <li class="person <%conver.message.forEach((value,key)=>{%>
+                                    <%if(key==conver.message.length-1){%>
+                                        <%if(value.receiverId==user._id&&value.isRead==false){%>un-read<%}%>
+                                    <%}%>
+                                <%})%>" data-chat="<%= conver.id%>">
                                         <div class="left-avatar">
                                             <div class="dot"></div>
                                             <img src="<%= conver.avatar%>" alt="">
@@ -47,7 +61,13 @@
                                         <span class="name">
                                                 <%= conver.userName%>
                                         </span>
-                                        <span class="time">Một phút trước</span>
+                                        <span class="time">
+                                                <%conver.message.forEach((value,key)=>{%>
+                                                    <%if(key==conver.message.length-1){%>
+                                                        <%= convertTimeMessages(value.createdAt)%>
+                                                    <%}%>
+                                                <%})%>
+                                           </span>
                                         <span class="preview">   <%conver.message.forEach((value,key)=>{%>
                                             <%if(key==conver.message.length-1){%>
                                                 <% if(value.text){%>

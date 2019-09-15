@@ -808,6 +808,10 @@ label:focus,
   color: #999;
 }
 
+li.un-read span {
+    color: #ff0303 !important;
+}
+
 .left .people .person.active,
 .left .people .person:hover {
   margin-top: -1px;
@@ -1292,9 +1296,7 @@ img.message-image {top: 4px;position: absolute;width: 40px;border-radius: 100%;r
   margin: 10px 0px 5px 2px;
 }
 
-.group-chat-name {
-  color: #ff7675 !important;
-}
+.group-chat-name {color: black;}
 
 .list-user-added {
   display: none;

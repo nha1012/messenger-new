@@ -72,7 +72,7 @@ contactSchema.statics= {
         {'status':true}
       ]}
       ]}
-    ).sort({"createdAt":-1}).limit(limit).exec()
+    ).limit(limit).exec()
   },
   findAndRemoveFriend(idUser,idContact){
     return this.findOneAndRemove(
@@ -130,6 +130,21 @@ contactSchema.statics= {
         {'userId':idUser},
         {'contactId':idUser},
       ]}
+    ).exec()
+  },
+  afterAddMessage(userId,contactId){
+    return this.updateOne(
+      {   $or : [
+        { $and : [
+        {'userId':userId},
+        {'contactId':contactId},
+      ]},
+      { $and : [
+        {'contactId':userId},
+        {'userId':contactId},
+      ]}
+      ]},
+      {'updatedAt':Date.now()}
     ).exec()
   }
 }

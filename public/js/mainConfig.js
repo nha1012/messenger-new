@@ -136,12 +136,33 @@ function cancelCreateGroup() {
     }
   });
 }
-function changeScreenChat(chatId) {
-  $(".room-chat").unbind("click").on('click', function () {
+function removeUnRead(target) {
+  let data={isGroup:false}
+  data.id = $(target).children().attr('data-chat')  
+  if ($(target).children().hasClass('group-chat')) {
+    data.isGroup=true
+  }
+  if ($(target).children().hasClass('un-read')==true){
+    $.post("/message/mark-readed", data,
+        function (result) {
+          console.log(result);
+        }
+      )
+      .fail(function() {
+        alert( "error" );
+      })
+      $(target).children().removeClass('un-read')
+  }else{
+    return false
+  }
+}
+function changeScreenChat(divId) {
+  $(".people").unbind("click").on('click','.room-chat', function () {
     divId = $(this).find('li').data("chat")
     $(this).tab("show")
     $(".room-chat").find('li').removeClass('active')
     $(this).find('li').addClass('active')   
+    removeUnRead(this)
     // Bật emoji, tham số truyền vào là id của box nhập nội dung tin nhắn
     nineScrollRight(divId)
     enableEmojioneArea(divId);
@@ -157,7 +178,6 @@ $(document).ready(function() {
   // Cấu hình thanh cuộn
   nineScrollLeft();
   // Icon loading khi chạy ajax
-  ajaxLoading();
   // Hiển thị hình ảnh grid slide trong modal tất cả ảnh, tham số truyền vào là số ảnh được hiển thị trên 1 hàng.
   // Tham số chỉ được phép trong khoảng từ 1 đến 5
   gridPhotos(5);

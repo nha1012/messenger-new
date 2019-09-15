@@ -18,6 +18,14 @@ chatGroup.statics={
     return this.find({
       'member':{$elemMatch:{'userId':idUser}}
     }).exec()
+  },
+  findGroupById(id){
+    return this.findById(id).exec()
+  }
+  ,afterAddNewMessage(id){
+    return this.findByIdAndUpdate(id,
+      {'updatedAt':Date.now()}
+    ).exec()
   }
 }
 module.exports = mongoose.model('chatGroup',chatGroup)

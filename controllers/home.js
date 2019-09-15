@@ -11,6 +11,9 @@ import removeFriends from '../services/removeFriend'
 import getFriendInMessages from '../services/getFriendInMessage'
 import addNewMessageTextEmojis from '../services/addNewMessageTextEmoji'
 import {bufferToBase64} from "../bufferToBase64"
+import convertTimeMessages from '../helper/convertTimeMessages'
+import markAllMessageIsRead from '../services/markAllMessagesIsRead'
+import groupModel from '../model/ChatGroup'
 let homeRouter =  async (req,res)=>{
     //get 10 notif
     let notifications = await getNotifications.getNotifications(req.user._id)
@@ -41,7 +44,8 @@ let homeRouter =  async (req,res)=>{
       sender:sender,
       countSender:countSender,
       getFriends:getFriends,
-      bufferToBase64:bufferToBase64
+      bufferToBase64:bufferToBase64,
+      convertTimeMessages:convertTimeMessages
     })
 }
 let findUser =async (req,res)=>{
@@ -166,14 +170,28 @@ let removeAllNotif=async (req,res)=>{
 }
 let addNewMessageTextEmoji= async(req,res)=>{
   let message = await addNewMessageTextEmojis(req,res)
-  .then(result=>{
+  .then(async result=>{
+    if(req.body.isGroup=="true"){
+      await groupModel.afterAddNewMessage(req.body.targetId) 
+    }else{
+      await contactModel.afterAddMessage(req.user._id,req.body.targetId)
+    }
     return  res.status(200).send(message)
   })
   .catch(err=>{
     return  res.status(500).send(err)
   })
 }
-
+let markAllMessageIsReads = async(req,res)=>{
+  await markAllMessageIsRead(req,res)
+  .then(result=>{
+    return res.status(200)
+  })
+  .catch(err=>{
+    console.log(err);
+    return res.status(500)
+  })
+}
 module.exports = {
   homeRouter:homeRouter,
   findUser:findUser,
@@ -184,6 +202,7 @@ module.exports = {
   acceptReceived:acceptReceived,
   removeFriend:removeFriend,
   removeAllNotif:removeAllNotif,
-  addNewMessageTextEmoji:addNewMessageTextEmoji
+  addNewMessageTextEmoji:addNewMessageTextEmoji,
+  markAllMessageIsReads: markAllMessageIsReads
  
 }

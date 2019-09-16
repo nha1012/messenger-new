@@ -30,6 +30,7 @@ function textAndEmojiChat(chatId) {
         liLeft.children(".preview").html(message)
         liLeft.find('span.time').html("vài giây trước")
         $('.people').prepend(liLeft.parent()[0])
+        typingOff(chatId)
       }
     );
     }
@@ -38,13 +39,10 @@ function textAndEmojiChat(chatId) {
 }
 $(document).ready(function () {
   socket.on('server-add-new-messages-text-emoji', function (data) {
-
+    $(".audio-messages")[0].play();
     $(`.chat.${data.userId} `).scroll(function (event) {
      var scroll = $(`.chat.${data.userId} `).scrollTop();     
   });
-  console.log(data);
-  
-
     if(data.isGroup!=true){
       let leftMenu = `<a href="#${data.userId}" class="room-chat" data-target="#to_${data.userId}">
       <li class="person active un-read" data-chat="${data.userId}">
@@ -70,16 +68,39 @@ $(document).ready(function () {
       $('.people').prepend(leftMenu)
       liLeft.children(".preview").html(message)
       liLeft.find('span.time').html("vài giây trước")
-      
+      nineScrollRight(data.userId)
+     
     }else{
+      let leftMenu = `<a href="#uid${data.idGroup}" class="room-chat
+      <" data-target="#to_${data.idGroup}">
+    <li class="person group-chat un-read" data-chat="${data.idGroup}">
+      <div class="left-avatar">
+          <div class="dot"></div>
+          <img src="./images/users/group-avatar-trungquandev.png" alt="">
+      </div>
+      <span class="name group-chat-name">
+          Group:${data.name}
+      </span>
+      <span class="time
+      "> 
+        vài giây trước
+          
+      </span>
+      <span class="preview"><div class="bubble you" data-mess-id="${data.idGroup}">
+    <img class="message-image" src="/images/users/9cb6d053-36c0-4489-a3a8-2a113ff61abe-tải xuống.jpg" title="Admin" alt="">
+    ${data.messages}</div></span>
+      </li>
+    </a>`
         let message = `<div class="bubble you" data-mess-id="${data.idGroup}">
         <img class="message-image" src="${data.avatar}" title="${data.userName}" alt="">
         ${data.messages}</div>`
         $(`.chat.${data.idGroup}`).append(message)
         let a =$(".people").find(`li[data-chat=${data.idGroup}]`)
         a.children(".preview").html(message)
+        let liLeft =$(".people").find(`li[data-chat=${data.idGroup}]`)
+        liLeft.parent().remove()
+        $('.people').prepend(leftMenu)
         nineScrollRight(data.idGroup)
-
 
       }
   })

@@ -38,9 +38,14 @@ function enableEmojioneArea(chatId) {
     events: {
       keyup: function(editor, event) {
         $(`#write-chat-${chatId}`).val(this.getText());
+        typingOn(chatId)
       },
       click: function () {
         textAndEmojiChat(chatId)
+        typingOn(chatId)
+      },
+      blur:function () {
+        typingOff(chatId)
       }
     },
   });

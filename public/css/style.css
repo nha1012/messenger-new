@@ -973,7 +973,9 @@ li.un-read span {
 }
 
 .bubble-typing-gif img {
-  width: 40%;
+  height: 91px !important;
+  width: 85px !important;
+  margin-left: 10px;
 }
 
 .right .chat.active-chat .bubble {

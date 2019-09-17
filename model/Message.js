@@ -9,7 +9,7 @@ let messageSchema = new mongoose.Schema({
   receiver:{id:String,name:String,avatar:String},
   text:String,
   isRead:{type:Boolean,default:false},
-  file:{date:Buffer,contentType:Buffer,fileName:String},
+  file:{data:Buffer,contentType:Buffer,fileName:String},
   createdAt:{type:Number,default:Date.now()},
   updatedAt:{type:Number,default:null},
   deletedAt:{type:Number,default:null}

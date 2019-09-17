@@ -26,7 +26,6 @@ let updateAvatar = async(req,res)=>{
    if(error){
     return res.status(500).send('File qua lon')
    }
-
    let item = {
      avatar: `/images/users/${req.file.filename}`,
      isUpdateAvatar: true

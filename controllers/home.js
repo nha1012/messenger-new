@@ -10,10 +10,11 @@ import acceptReceiveds from '../services/acceptReceived'
 import removeFriends from '../services/removeFriend'
 import getFriendInMessages from '../services/getFriendInMessage'
 import addNewMessageTextEmojis from '../services/addNewMessageTextEmoji'
-import {bufferToBase64} from "../bufferToBase64"
+import {bufferToBase64} from "../helper/bufferToBase64"
 import convertTimeMessages from '../helper/convertTimeMessages'
 import markAllMessageIsRead from '../services/markAllMessagesIsRead'
 import groupModel from '../model/ChatGroup'
+import addNewMessagesImage from './addNewMessagesImage'
 let homeRouter =  async (req,res)=>{
     //get 10 notif
     let notifications = await getNotifications.getNotifications(req.user._id)
@@ -192,6 +193,7 @@ let markAllMessageIsReads = async(req,res)=>{
     return res.status(500)
   })
 }
+
 module.exports = {
   homeRouter:homeRouter,
   findUser:findUser,
@@ -203,6 +205,6 @@ module.exports = {
   removeFriend:removeFriend,
   removeAllNotif:removeAllNotif,
   addNewMessageTextEmoji:addNewMessageTextEmoji,
-  markAllMessageIsReads: markAllMessageIsReads
- 
+  markAllMessageIsReads: markAllMessageIsReads,
+  addNewMessagesImage:addNewMessagesImage
 }

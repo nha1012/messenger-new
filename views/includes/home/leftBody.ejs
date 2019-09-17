@@ -40,10 +40,11 @@
                                         <%if(key==conver.message.length-1){%>
                                             <% if(value.text){%>
                                                 <%= value.text%>    
+                                            <%}else if(value.messageType=="image"){%>
+                                                Ảnh   
                                             <%}else{%>
-                                                A file    
-                                            <%}%>
-                                        <%}%>
+                                                Tệp đính kèm
+                                        <%}}%>
                                     <%})%>    </span>
                                 </li>
                             </a>
@@ -72,10 +73,11 @@
                                             <%if(key==conver.message.length-1){%>
                                                 <% if(value.text){%>
                                                     <%= value.text%>    
+                                                <%}else if(value.messageType=="image"){%>
+                                                    Ảnh   
                                                 <%}else{%>
-                                                    A file    
-                                                <%}%>
-                                            <%}%>
+                                                    Tệp đính kèm
+                                            <%}}%>
                                         <%})%>    </span>
                                     </li>
                                 </a>

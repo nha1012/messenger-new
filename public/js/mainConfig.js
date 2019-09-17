@@ -171,6 +171,7 @@ function changeScreenChat(divId) {
     // Bật emoji, tham số truyền vào là id của box nhập nội dung tin nhắn
     nineScrollRight(divId)
     enableEmojioneArea(divId);
+    imageMessages(divId)
     })
   }
 $(document).ready(function() {

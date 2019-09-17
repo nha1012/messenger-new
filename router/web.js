@@ -60,6 +60,7 @@ let routerWeb = (app)=>{
   router.delete('/notif/remove-all',isLogin, homeRouter.removeAllNotif),
   router.post('/message/add-new-text-emoji',isLogin, homeRouter.addNewMessageTextEmoji),
   router.post('/message/mark-readed',isLogin, homeRouter.markAllMessageIsReads),
+  router.post('/message/add-new-image',isLogin, homeRouter.addNewMessagesImage),
   app.use('/',router)
 }
 module.exports = routerWeb;

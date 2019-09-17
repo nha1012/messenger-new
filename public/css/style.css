@@ -889,9 +889,9 @@ li.un-read span {
   flex-direction: column;
 }
 
-#image-chat,
-#attach-chat {
-  display: none;
+.image-chat,
+.attach-chat {
+  display: none  !important;
 }
 
 .room-chat:hover,
@@ -1159,6 +1159,13 @@ li.un-read span {
 
 .right .bubble.me img {display: none;right: -46px;width: 40px;height: 40px;}
 
+img.show-image-chat {
+    margin-left: 229px;
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+}
+
 img.message-image {top: 4px;position: absolute;width: 40px;border-radius: 100%;right: -29px;}
 
 .right .bubble.you img {
@@ -1167,13 +1174,16 @@ img.message-image {top: 4px;position: absolute;width: 40px;border-radius: 100%;r
   float: left;
 }
 
+.you img.show-image-chat {
+    margin-left: 0px;
+}
+
 .you img.message-image {
     left: -46px;
 }
 
 .right .bubble.me a {
   float: left;
-  border-bottom: 1.5px solid #c8d6e5;
   padding: 5px;
 }
 

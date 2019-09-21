@@ -24,7 +24,6 @@
                                         <%}%>
                                     <%})%>" data-chat="<%= conver.id%>" >
                                     <div class="left-avatar">
-                                        <div class="dot"></div>
                                         <img src="./images/users/group-avatar-trungquandev.png" alt="">
                                     </div>
                                     <span class="name group-chat-name">
@@ -68,7 +67,7 @@
                                                         <%= convertTimeMessages(value.createdAt)%>
                                                     <%}%>
                                                 <%})%>
-                                           </span>
+                                           </span></br>
                                         <span class="preview">   <%conver.message.forEach((value,key)=>{%>
                                             <%if(key==conver.message.length-1){%>
                                                 <% if(value.text){%>
@@ -95,7 +94,7 @@
                                 <a  href="#uid<%= conver.id%>" class="room-chat" data-target="#to_<%= conver.id%>">
                                         <li class="person" data-chat="<%= conver.id%>">
                                             <div class="left-avatar">
-                                                <div class="dot"></div>
+                                                
                                                 <img src="<%= conver.avatar%>" alt="">
                                             </div>
                                             <span class="name">
@@ -129,7 +128,7 @@
                                 <a  href="#uid<%= conver.id%>" class="room-chat" data-target="#to_<%= conver.id%>">
                                     <li class="person group-chat" data-chat="<%= conver.id%>">
                                         <div class="left-avatar">
-                                            <div class="dot"></div>
+                                         
                                             <img src="./images/users/group-avatar-trungquandev.png" alt="">
                                         </div>
                                         <span class="name">

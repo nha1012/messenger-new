@@ -15,6 +15,25 @@ contactSchema.statics= {
   findContactById(id){
     return this.find({userId:id}).exec()
   },
+  findContactToAddGroup(userId,contactId){
+    return this.find(
+      {
+        $or:[
+          {
+            $and:[
+              {'userId':userId},
+              {'contactId':contactId},
+              {'status':true}
+                ]
+             },
+           { $and:[
+              {"userId":contactId},
+              {'contactId':userId},
+              {'status':true}
+                ]}
+        ]}
+    ).exec()
+  },
   checkContact(userId,contactId){
     return this.findOne({
       $or:[

@@ -59,6 +59,16 @@ userSchema.statics ={
       }
       ).select('-local').exec()
   },
+  findUserByNameToCreateGroup(name,isContact){
+    return this.find(
+      {
+        $and:[
+          { 'userName': { $regex: '.*' + name + '.*' }},
+          {'_id':isContact}
+        ] 
+      }
+      ).select('-local').exec()
+  },
   findByIdUserNoneLocal(idUser){
     return this.findById(idUser).select('-local').exec()
   }

@@ -6,7 +6,7 @@ let tranSporter = nodeMailer.createTransport({
   requireTLS: true,
   auth: {
       user: 'nguyenphucnha111@gmail.com',
-      pass: 'nha10121999'
+      pass: 'nhajavascript'
   }
 })
 const mailOptions = function (to,subject,text) {

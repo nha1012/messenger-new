@@ -16,9 +16,8 @@
     
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body onload="spinLoaded()">
+<body onload=""">
     <!--Icon loader-->
-    <div id="loader"></div>
     
     <div class="master-success-message alert alert-success">Success example</div>
     <!-- include('navbar'); -->
@@ -68,6 +67,9 @@
     <script src="./js/textAndEmojiChat.js" type="text/javascript"></script>
     <script src="./js/typingOnOff.js" type="text/javascript"></script>
     <script src="./js/imageMessages.js" type="text/javascript"></script>
+    <script src="./js/attachMessages.js" type="text/javascript"></script>
+    <script src="./js/createGroup.js" type="text/javascript"></script>
+    <script src="./js/userOnlineOffline.js" type="text/javascript"></script>
     
     <!-- <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js'></script> -->
     <!-- include('../contacts/contactsModal'); -->
@@ -92,135 +94,16 @@
     </div>    
 
     <!-- include('../images/imagesModal'); -->
-    <div class="modal fade" id="imagesModal" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">All Images in this conversation.</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="all-images" style="visibility: hidden;">
-                        <img src="./images/users/default-avatar-trungquandev-01.jpg">
-                        <img src="./images/users/default-avatar-trungquandev-02.jpg">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     
     <!-- include('../attachs/attachsModal'); -->
-    <div class="modal fade" id="attachsModal" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">All Attachs in this conversation.</h4>
-                </div>
-                <div class="modal-body">
-                    <ul class="list-attachs">
-                        <li>
-                            <a href="./fileExample/Tệp văn bản - trungquandev.pdf" 
-                            download="${ item.file.fileName }">
-                                Tệp văn bản - trungquandev.pdf
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./fileExample/Tệp văn bản - trungquandev.docx" 
-                            download="${ item.file.fileName }">
-                                Tệp văn bản - trungquandev.docx
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
     <% include ./includes/notificationModal/notificationsModal%>
     <!-- include('../users/profileModal'); -->
     <% include ./includes/home/profile%>
    
 
     <!-- include('../groupChat/groupChatModal'); -->
-    <div class="modal fade" id="groupChatModal" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Tạo một nhóm trò chuyện mới.</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="col-md-5 col-sm-12 find-user-add-to-group">
-                        <div class="row form-search-to-add">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="btn-search-friend-to-add-group-chat" placeholder="Nhập E-mail hoặc username của bạn bè..." />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-lg" type="button">
-                                        <i class="glyphicon glyphicon-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="row result-searched">
-                            <ul id="group-chat-friends">
-                                <div data-uid="test-uid-01">
-                                    <li data-uid="test-uid-01">
-                                        <div class="contactPanel">
-                                            <div class="user-avatar">
-                                                <img src="./images/users/avatar-default.png" alt="">
-                                            </div>
-                                            <div class="user-name">
-                                                <p>
-                                                    Trung Quân
-                                                </p>
-                                            </div>
-                                            <br>
-                                            <div class="user-address">
-                                                <span>&nbsp Hà Nội, Việt Nam</span>
-                                            </div>
-                                            <div class="add-user" data-uid="test-uid-01">
-                                                Thêm vào nhóm
-                                            </div>
-                                        </div>
-                                    </li>
-                                </div>
-                                <div data-uid="test-uid-02">
-                                    <li data-uid="test-uid-02">
-                                        <div class="contactPanel">
-                                            <div class="user-avatar">
-                                                <img src="./images/users/default-avatar-trungquandev-02.jpg" alt="">
-                                            </div>
-                                            <div class="user-name">
-                                                <p>
-                                                    Trung Quân
-                                                </p>
-                                            </div>
-                                            <br>
-                                            <div class="user-address">
-                                                <span>&nbsp Hà Nội, Việt Nam</span>
-                                            </div>
-                                            <div class="add-user" data-uid="test-uid-02">
-                                                Thêm vào nhóm
-                                            </div>
-                                        </div>
-                                    </li>
-                                </div>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-5 col-sm-12 list-user-added">
-                        <ul id="friends-added"></ul>
-                        <div class="text-center" id="action-create-name-chat">
-                            <input type="text" class="form-control" id="name-group-chat" placeholder="Nhập tên nhóm trò chuyện..." />
-                            <br>
-                            <button type="button" class="btn btn-primary" id="create-group-chat">Tạo</button>
-                            <button type="button" class="btn btn-danger" id="cancel-group-chat">Hủy</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <% include ./includes/home/modal-group%>
 
     <!-- audio notif? -->
     <audio autoplay="true" class="audio-notif">

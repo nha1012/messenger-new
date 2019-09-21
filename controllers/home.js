@@ -15,6 +15,7 @@ import convertTimeMessages from '../helper/convertTimeMessages'
 import markAllMessageIsRead from '../services/markAllMessagesIsRead'
 import groupModel from '../model/ChatGroup'
 import addNewMessagesImage from './addNewMessagesImage'
+import addNewMessagesAttach from './addNewMessagesAttach'
 let homeRouter =  async (req,res)=>{
     //get 10 notif
     let notifications = await getNotifications.getNotifications(req.user._id)
@@ -206,5 +207,6 @@ module.exports = {
   removeAllNotif:removeAllNotif,
   addNewMessageTextEmoji:addNewMessageTextEmoji,
   markAllMessageIsReads: markAllMessageIsReads,
-  addNewMessagesImage:addNewMessagesImage
+  addNewMessagesImage:addNewMessagesImage,
+  addNewMessagesAttach:addNewMessagesAttach
 }

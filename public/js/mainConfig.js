@@ -20,8 +20,8 @@ function nineScrollRight(chatId) {
     cursorwidth: '7px',
     scrollspeed: 50
   });
-  $(`.${chatId}`).scrollTop($(`.${chatId}`)[0].scrollHeight);
-  $(`.${chatId}`).getNiceScroll().resize()
+  $(`.chat.${chatId}`).scrollTop($(`.${chatId}`)[0].scrollHeight);
+  $(`.chat.${chatId}`).getNiceScroll().resize()
 }
 
 function enableEmojioneArea(chatId) {
@@ -91,35 +91,14 @@ function configNotification() {
   });
 }
 
-function gridPhotos(layoutNumber) {
-  let countRows = Math.ceil($('#imagesModal').find('div.all-images>img').length / layoutNumber);
-  let layoutStr = new Array(countRows).fill(layoutNumber).join("");
-  $('#imagesModal').find('div.all-images').photosetGrid({
-    highresLinks: true,
-    rel: 'withhearts-gallery',
-    gutter: '2px',
-    layout: layoutStr,
-    onComplete: function() {
-      $('.all-images').css({
-        'visibility': 'visible'
-      });
-      $('.all-images a').colorbox({
-        photo: true,
-        scalePhotos: true,
-        maxHeight: '90%',
-        maxWidth: '90%'
-      });
-    }
-  });
-}
+
 
 
 function addFriendsToGroup() {
-  $('ul#group-chat-friends').find('div.add-user').bind('click', function() {
+  $('ul#group-chat-friends').on('click','div.add-user', function() {
     let uid = $(this).data('uid');
     $(this).remove();
     let html = $('ul#group-chat-friends').find('div[data-uid=' + uid + ']').html();
-
     let promise = new Promise(function(resolve, reject) {
       $('ul#friends-added').append(html);
       $('#groupChatModal .list-user-added').show();
@@ -153,9 +132,6 @@ function removeUnRead(target) {
           console.log(result);
         }
       )
-      .fail(function() {
-        alert( "error" );
-      })
       $(target).children().removeClass('un-read')
   }else{
     return false
@@ -172,6 +148,7 @@ function changeScreenChat(divId) {
     nineScrollRight(divId)
     enableEmojioneArea(divId);
     imageMessages(divId)
+    attachMessages(divId)
     })
   }
 $(document).ready(function() {
@@ -186,8 +163,6 @@ $(document).ready(function() {
   // Icon loading khi chạy ajax
   // Hiển thị hình ảnh grid slide trong modal tất cả ảnh, tham số truyền vào là số ảnh được hiển thị trên 1 hàng.
   // Tham số chỉ được phép trong khoảng từ 1 đến 5
-  gridPhotos(5);
-
   // Thêm người dùng vào danh sách liệt kê trước khi tạo nhóm trò chuyện
   addFriendsToGroup();
 

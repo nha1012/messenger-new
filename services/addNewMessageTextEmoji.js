@@ -17,7 +17,7 @@ let addNewMessageTextEmoji = (req,res)=>{
             text:req.body.message,
             createdAt:Date.now()
           }
-          let newMessage= await messageModel.model.createNewMessageText(item)         
+          let newMessage= await messageModel.model.createNewMessage(item)         
           resolve(newMessage)
         }else{
           let getUserChat = await  userModel.findByIdUser(req.body.targetId)
@@ -31,7 +31,7 @@ let addNewMessageTextEmoji = (req,res)=>{
             text:req.body.message,
             createdAt:Date.now()
           }
-          let newMessage = await messageModel.model.createNewMessageText(item)
+          let newMessage = await messageModel.model.createNewMessage(item)
           resolve(newMessage)
         }
       }

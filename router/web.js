@@ -11,6 +11,7 @@ import authLogout from '../controllers/logout'
 import isLogin from '../controllers/islogin'
 import updateUser from '../controllers/userupdate'
 import markAllReaded from '../services/markAllReaded'
+import groupController from '../controllers/group'
 //init all from passportJS
 initPassportLocal();
 initPassportFacebook();
@@ -61,6 +62,9 @@ let routerWeb = (app)=>{
   router.post('/message/add-new-text-emoji',isLogin, homeRouter.addNewMessageTextEmoji),
   router.post('/message/mark-readed',isLogin, homeRouter.markAllMessageIsReads),
   router.post('/message/add-new-image',isLogin, homeRouter.addNewMessagesImage),
+  router.post('/message/add-new-attach',isLogin, homeRouter.addNewMessagesAttach),
+  router.post('/group/find-to-create-group',isLogin, groupController.findTocreateGroup),
+  router.post('/group/create-group',isLogin, groupController.createGroups),
   app.use('/',router)
 }
 module.exports = routerWeb;

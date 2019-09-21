@@ -9,22 +9,6 @@
                     <%}else{%>
                         <%= conver.name%>
                         <%}%>
-                    
-                <span class="chat-menu-right">
-                    <a href="#attachsModal" id="show-attachs" data-toggle="modal">
-                        Tệp đính kèm
-                        <i class="fa fa-paperclip"></i>
-                    </a>
-                </span>
-                <span class="chat-menu-right">
-                    <a href="javascript:void(0)">&nbsp;</a>
-                </span>
-                <span class="chat-menu-right">
-                    <a href="#imagesModal" id="show-images" data-toggle="modal">
-                        Hình ảnh
-                        <i class="fa fa-photo"></i>
-                    </a>
-                </span>
             </div>  
             <div class="content-chat">
                 <div class="chat <%= conver.id%>" data-chat="<%= conver.id%>">
@@ -37,7 +21,7 @@
                             
                             <%if(message.messageType=="file"){%>
                                 <div class="bubble <% if(message.senderId==user._id){%>me <%}else{%>you<%}%> bubble-image-file" data-mess-id="<%=message._id%>">
-                                    <a href="" 
+                                    <a href="data:<%= message.file.contentType%>;base64,<%= bufferToBase64(message.file.data)%>" 
                                     download="<%= message.file.fileName%>">
                                         <%= message.file.fileName%>
                                     </a>
@@ -62,7 +46,7 @@
                                 
                                 <div class="bubble <% if(message.senderId==user._id){%>me <%}else{%>you<%}%> bubble-image-file" data-mess-id="<%=message._id%>">
                                     <img class="message-image" src="<%= message.sender.avatar%>" title="<%= message.sender.name%>" alt="">
-                                    <a href="" 
+                                    <a href="data:<%= message.file.contentType%>;base64,<%= bufferToBase64(message.file.data)%>" 
                                     download="<%= message.file.fileName%>">
                                         <%= message.file.fileName%>
                                     </a>
@@ -80,6 +64,7 @@
                         <%}%>
                         
                     <%})%>
+                   
                 </div>
             </div>
             <div class="write" data-chat="<%=  conver.id%>">
@@ -91,7 +76,7 @@
                         <i class="fa fa-photo"></i>
                     </label>
                     <label for="attach-chat">
-                        <input type="file" id="attach-chat" name="my-attach-chat" class="attach-chat" data-chat="<%=  conver.id%>">
+                        <input type="file" id="attach-chat" name="my-attach-chat" class="attach-chat <%= conver.id%> <%if(conver.member){%>group-chat<%}%>" data-chat="<%=  conver.id%>">
                         <i class="fa fa-paperclip"></i>
                     </label>
                     <a href="#streamModal" id="video-chat" class="video-chat" data-chat="<%=  conver.id%>" data-toggle="modal">

@@ -39,7 +39,6 @@ function textAndEmojiChat(chatId) {
 }
 $(document).ready(function () {
   socket.on('server-add-new-messages-text-emoji', function (data) {
-    $(".audio-messages")[0].play();
     $(`.chat.${data.userId} `).scroll(function (event) {
      var scroll = $(`.chat.${data.userId} `).scrollTop();     
   });
@@ -47,7 +46,6 @@ $(document).ready(function () {
       let leftMenu = `<a href="#${data.userId}" class="room-chat" data-target="#to_${data.userId}">
       <li class="person active un-read" data-chat="${data.userId}">
           <div class="left-avatar">
-              <div class="dot"></div>
               <img src="${data.avatar}" alt="">
           </div>
           <span class="name">

@@ -11,7 +11,7 @@ let chatGroup = new mongoose.Schema({
   deletedAt:{type:Number,default:null}
 })
 chatGroup.statics={
-  createChatGroup(item){
+  createNewGroup(item){
     return this.create(item)
   },
   findGroupByIdUser(idUser){

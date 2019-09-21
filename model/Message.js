@@ -15,7 +15,7 @@ let messageSchema = new mongoose.Schema({
   deletedAt:{type:Number,default:null}
 })
 messageSchema.statics={
-  createNewMessageText(item){
+  createNewMessage(item){
      return this.create(item);
     },
     findMessagesUser(senderId,receiverId,limit){

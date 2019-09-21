@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node server.js",
-    "postinstall": "bower cache clean && bower install"
+    "start": "babel-node server.js"
   },
   "repository": {
     "type": "git",

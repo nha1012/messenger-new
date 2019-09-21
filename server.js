@@ -16,7 +16,7 @@ const app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 server.listen('messenger-nhadev.herokuapp.com',()=>(
-  console.log("Server is running on host 3000")
+  console.log("Server is running on host messenger-nhadev.herokuapp.com")
 ))
 connectDb();
 

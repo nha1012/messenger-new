@@ -7,7 +7,7 @@ let initFacebookStrategy = ()=>{
   passport.use(new facebookStrategy({
     clientID: '503217393775100',
     clientSecret: '463442ae5b388a8ccf001cd17b05a9c9',
-    callbackURL: "http://localhost:3000/auth/facebook/callback",
+    callbackURL: "https://messenger-nhadev.herokuapp.com/auth/facebook/callback",
     passReqToCallback:true,
     profileFields: ['id', 'displayName', 'photos', 'email','gender']
   },(req,accessToken,refreshToken,profile,done)=>{

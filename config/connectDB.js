@@ -9,7 +9,7 @@ let connectDb = ()=>{
   let DB_USER = "";
   let DB_PASSWORD = "";
   
-  let URI = `${DB_CONNECTION}://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+  let URI = `mongodb+srv://nguyenphucnha:nha10121999@cluster0-uz4fi.mongodb.net/test?retryWrites=true&w=majority`;
   console.log('connected!');
   
   return mongoose.connect(URI,{useNewUrlParser: true,useUnifiedTopology: true});

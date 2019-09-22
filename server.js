@@ -15,7 +15,7 @@ import configSession from './config/session'
 const app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-server.listen('messenger-nhadev.herokuapp.com',()=>(
+server.listen(process.env.PORT || 5000,()=>(
   console.log("Server is running on host messenger-nhadev.herokuapp.com")
 ))
 

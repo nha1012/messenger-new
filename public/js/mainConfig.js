@@ -169,5 +169,4 @@ $(document).ready(function() {
   // Action hủy việc tạo nhóm trò chuyện
   cancelCreateGroup();
   $('ul.people').find("a")[0].click()
-
 });

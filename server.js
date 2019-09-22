@@ -15,8 +15,8 @@ import configSession from './config/session'
 const app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-server.listen(3000,'localhost',()=>(
-  console.log("Server is running on host 3000")
+server.listen('messenger-nhadev.herokuapp.com',()=>(
+  console.log("Server is running on host messenger-nhadev.herokuapp.com")
 ))
 connectDb();
 

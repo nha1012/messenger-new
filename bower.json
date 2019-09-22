@@ -1,0 +1,25 @@
+{
+  "name": "messenger",
+  "version": "1.0.1",
+  "authors": [
+    "nha"
+  ],
+  "description": "Tổng hợp những thư viện bên thứ 3 sử dụng cho dự án Awesome Chat.",
+  "main": "/server.js",
+  "keywords": [
+    "awesome-chat-third-party-libraries-trungquandev"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/trungquan17/awesome-chat-third-party-libraries.git",
+  "dependencies": {
+    "bower_components":"https://github.com/trungquan17/awesome-chat-third-party-libraries.git",
+    "emojione":"4.5.0"
+  }
+}

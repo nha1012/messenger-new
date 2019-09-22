@@ -2,7 +2,7 @@ import session from 'express-session'
 let mongoDBStore = require('connect-mongodb-session')(session);
 let store = new mongoDBStore({
   // uri: URI
-  uri: 'mongodb://localhost:27017/messenger'
+  uri: 'mongodb+srv://nguyenphucnha:nha10121999@cluster0-uz4fi.mongodb.net/test?retryWrites=true&w=majority'
 })
 let config=(app)=>{
 app.use(session({

@@ -7,7 +7,7 @@ let userSchema = new mongoose.Schema({
   address: {type:String,default:'Không rõ địa chỉ.'},
   avatar: {type:String,default:"/images/users/avatar-default.png"},
   role:{type:String,default:"user"},
-  local:{email:String,password:String,isactive:{type:Boolean,default:false},verifytoken:String},
+  local:{email:String,password:String,isactive:{type:Boolean,default:true},verifytoken:String},
   facebook:{uid:String,token:String,email:{type:String,trim:true}},
   google:{uid:String,token:String,email:{type:String,trim:true}},
   createdAt:{type:Number,default:Date.now()},

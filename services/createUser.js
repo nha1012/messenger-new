@@ -13,7 +13,7 @@ let createUser =  (email,gender,password,req)=>{
   }
   let user =  userSchema.createNewUser(userItem)
   try {
-    let arraySuccess = ['Chúng tôi đã gửi email xắc thực tài khoản cho bạn, hãy kiểm tra lại nhé!!']
+    //let arraySuccess = ['Chúng tôi đã gửi email xắc thực tài khoản cho bạn, hãy kiểm tra lại nhé!!']
     req.flash('success', arraySuccess)
     mailerConfig.tranSporter.sendMail(mailerConfig.mailOptions(email,'Đây là email xác thực tài khoản.','https://messenger-nhadev.herokuapp.com/verify/'+ userItem.local.verifytoken))
   } catch (error) {

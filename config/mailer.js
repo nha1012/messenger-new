@@ -5,13 +5,13 @@ let tranSporter = nodeMailer.createTransport({
   secure: false,
   requireTLS: true,
   auth: {
-      user: 'nguyenphucnha0111@gmail.com',
-      pass: '01689753582'
+      user: 'nguyenphucnha111@gmail.com',
+      pass: 'nhajavascript'
   }
 })
 const mailOptions = function (to,subject,text) {
   return {
-    from:'nguyenphucnha0111@gmail.com',
+    from:'nguyenphucnha111@gmail.com',
     to:to,
     subject: subject,
     text:text

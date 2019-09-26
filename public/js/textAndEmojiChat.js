@@ -20,6 +20,7 @@ function textAndEmojiChat(chatId) {
     if(data.message.length>0){
       $.post("/message/add-new-text-emoji", data,
       function (result) {
+        data ={}
         socket.emit('client-add-new-messages-text-emoji', data)
         let aMessage= `<div class="bubble me ">${data.message}
         </div>`
@@ -33,6 +34,7 @@ function textAndEmojiChat(chatId) {
         typingOff(chatId)
       }
     );
+      data ={}
     }
     }
   })

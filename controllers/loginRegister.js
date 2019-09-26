@@ -26,7 +26,7 @@ let postRegister = (req , res)=>{
       return res.redirect('/login-register');
     }
     req.flash('success', arraySuccess)
-    createUser(req.body.email,req.body.gender,req.body.password,req) 
+    createUser(req.body.email,req.body.gender,req.body.password,req,res) 
     return res.redirect('/')
   });
     

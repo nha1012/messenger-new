@@ -1,7 +1,7 @@
 import session from 'express-session'
 let mongoDBStore = require('connect-mongodb-session')(session);
 let store = new mongoDBStore({
-  uri: 'mongodb://uqrlcsekqyc5vkufpuli:IV3AbwxqjtZppT9QRnOh@bi7mbxoxmcnpvk2-mongodb.services.clever-cloud.com:27017/bi7mbxoxmcnpvk2'
+  uri: 'mongodb://ukn4k49wkryxzlsbw8nj:GRU4za8ohkNyebzftlor@bdbailrwhi0yqq8-mongodb.services.clever-cloud.com:27017/bdbailrwhi0yqq8'
 })
 let configDb=(app)=>{
 app.use(session({

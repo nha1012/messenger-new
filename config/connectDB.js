@@ -9,7 +9,7 @@ let connectDb = ()=>{
   let DB_USER = "";
   let DB_PASSWORD = "";
   
-  let URI = `mongodb://uqrlcsekqyc5vkufpuli:IV3AbwxqjtZppT9QRnOh@bi7mbxoxmcnpvk2-mongodb.services.clever-cloud.com:27017/bi7mbxoxmcnpvk2`;
+  let URI = 'mongodb://ukn4k49wkryxzlsbw8nj:GRU4za8ohkNyebzftlor@bdbailrwhi0yqq8-mongodb.services.clever-cloud.com:27017/bdbailrwhi0yqq8';
   console.log('connected!');
   return mongoose.connect(URI,{useNewUrlParser: true,useUnifiedTopology: true});
 }

@@ -10,14 +10,11 @@ let initFacebookStrategy = ()=>{
     callbackURL: "https://messenger-nhadev.herokuapp.com/auth/facebook/callback",
     passReqToCallback:true,
     profileFields: ['id', 'displayName', 'photos', 'email','gender']
-  },(req,accessToken,refreshToken,profile,done)=>{
-    userModel.findByUidFacebook(profile.id)
-      .then(user=>{
+  }, async(req,accessToken,refreshToken,profile,done)=> {
+  let user = await  userModel.findByUidFacebook(profile.id)
+      if(user){
         return done(null,user)
-      })
-      .catch(err=>{
-        console.log(err);
-      })
+      }
     let userItem={
       userName: profile.displayName,
       gender:profile.gender,
@@ -30,8 +27,8 @@ let initFacebookStrategy = ()=>{
         isactive:true
       }
     }
-    let newUser = userModel.createNewUser(userItem)
-    return done(null,newUser)
+    let userNew = await userModel.createNewUser(userItem)
+      return done(null,userNew)
   }
   ))
   passport.serializeUser((user,done)=>{
@@ -43,7 +40,6 @@ let initFacebookStrategy = ()=>{
       return done(null,user)
     })
     .catch(err=>{
-      console.log(err);
       return done(null,false)
     })
   })
